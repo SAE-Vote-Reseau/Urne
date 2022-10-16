@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import static java.lang.System.out;
 
 public class main {
-    public static String questionSondage="Voulez-vous avoir le Cheese by Mcdo a 1 euro ?";
+    public static String questionSondage="l'Israel est un pays ou pas ?";
     public static String choix1 = "NON";
     public static String choix2 = "OUI";
-    public static ArrayList<String> VOTEPACKAGE = new ArrayList<String>();
+    public static String[] VOTEPACKAGE = new String[]{questionSondage,choix1,choix2};
     static int i=0;
 
 
@@ -18,9 +18,6 @@ public class main {
 
     //reçois le vote du serveur
     public static void main(String[] args) {
-        if(i==0){
-            setListeSondage();
-        }
         try{
             //création d'un socket client
             java.net.ServerSocket Serversocket = new java.net.ServerSocket(5565);
@@ -56,10 +53,6 @@ public class main {
         main(args);
 
     }
-    public static void setListeSondage(){
-        VOTEPACKAGE.add(questionSondage);
-        VOTEPACKAGE.add(choix1);
-        VOTEPACKAGE.add(choix2);
-    }
+
 
 }
