@@ -1,5 +1,7 @@
 package vote.Urne;
 
+import org.junit.platform.commons.util.StringUtils;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class main {
    /* public static String questionSondage="l'Israel est un pays ou pas ?"; //?????
@@ -74,12 +78,28 @@ public class main {
     private static class CommandeCreerSondage implements Commande {
         private Sondage sondage;
 
-        public CommandeCreerSondage(String[] parametersArray) throws ParsingException {
-            if(parametersArray.length < 4){
+        private ArrayList<String> parsingStringBetweenQuote(String raw) throws ParsingException {
+            ArrayList<String> parameters = new ArrayList<>();
+
+            Pattern pattern = Pattern.compile("\"[^\"]+\"");
+            Matcher matcher = pattern.matcher(raw);
+
+            while (matcher.find()){
+                String parameter = matcher.group();
+                parameters.add(parameter.substring(1, parameter.length()-1));
+            }
+
+            return parameters;
+        }
+
+        public CommandeCreerSondage(String commandeBrute) throws ParsingException {
+            ArrayList<String> parameters = parsingStringBetweenQuote(commandeBrute);
+
+            if (parameters.size() < 3){
                 throw new ParsingException("Il n'y a pas assez d'arguments");
             }
 
-            sondage = new Sondage(parametersArray[1],parametersArray[2],parametersArray[3]);
+            sondage = new Sondage(parameters.get(0),parameters.get(1),parameters.get(2));
         }
 
         @Override
@@ -111,14 +131,12 @@ public class main {
     private static class CommandeSimulerClient implements Commande {
         private String requete;
 
-        public CommandeSimulerClient(String[] command) throws ParsingException{
-            if (command.length > 1){
-                this.requete = command[1];
-            }
-            else {
+        public CommandeSimulerClient(String commandeBrute) throws ParsingException{
+            int sperateur = commandeBrute.indexOf(" ");
+            if(sperateur == -1){
                 throw new ParsingException("Il n'y a pas assez d'arguments");
             }
-
+            this.requete = commandeBrute.substring(sperateur + 1);
         }
 
         @Override
@@ -142,16 +160,21 @@ public class main {
     }
 
     private static Commande parse(String commandeBrut) throws ParsingException{
-        String[] splited_command = commandeBrut.split(" ");
+        int firstSpace = commandeBrut.indexOf(" ");
+        String firstWord = commandeBrut;
+        if(firstSpace != -1){
+            firstWord = commandeBrut.substring(0,firstSpace);
+        }
 
-        if(splited_command.length > 0) {
-            switch (splited_command[0]) {
+
+        if(firstWord.length() > 0) {
+            switch (firstWord) {
                 case "creer":
-                    return new CommandeCreerSondage(splited_command);
+                    return new CommandeCreerSondage(commandeBrut);
                 case "fermer_recolte":
                     return new CommandeFermerSondage();
                 case "simuler_client":
-                    return new CommandeSimulerClient(splited_command);
+                    return new CommandeSimulerClient(commandeBrut);
             }
         }
         return null;
@@ -161,7 +184,7 @@ public class main {
 
 
     public static void main(String[] args) { //Le main est temporaire, il peut etre modifier plus tard
-        System.out.println("Action possible:\ncreer [consigne] [choix1] [choix2]\nfermer_recolte\nsimuler_client [requete] (a des fin de tests)");
+        System.out.println("Action possible:\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\nfermer_recolte\nsimuler_client [requete] (a des fin de tests, pas besoin de \"\")");
         while(true) {
             Scanner input = new Scanner(System.in);
             String rawCommand = input.nextLine();
