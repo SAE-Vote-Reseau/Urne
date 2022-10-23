@@ -16,9 +16,11 @@ public class Urne{
     private class Traitement implements Runnable{
         private final Sondage sondageEnCours;
         private final ServerSocket serveur;
+        private String[] resultat;
 
         public Traitement(Sondage sondage, int port) throws IOException{
             this.sondageEnCours = sondage;
+            this.resultat = new String[]{sondage.getConsigne(),sondageEnCours.getChoix1(), sondageEnCours.getChoix2(), "1", "0"};
             this.serveur = new ServerSocket(port);
             serveur.setSoTimeout(1000);
         }
@@ -48,6 +50,7 @@ public class Urne{
 
         private void handleConnection(Socket socket){
                 try {
+
                     ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                     ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
@@ -55,20 +58,36 @@ public class Urne{
 
                     String input = in.readUTF();
 
+
                     System.out.println("recu: " + input);
+
 
                     if(!recolteFiniFlag) { //il faudra faire la recolte des votes ici
                         if (input.equals("getSondage")) {
                             System.out.println("Demande du sondage actuel recu");
+
                             out.writeObject(sondageEnCours);
+                            out.flush();
+
+                        }else if(input.equals("0")||input.equals("1")){
+                            System.out.println("Vote recu : " + input);
                         }
-                        else {
-                            System.out.println("Unknow request");
+                        else if(input.equals("getResults")){// faire en sorte que cette commande ne soit pas disponible tant que la recolte n'est pas fini
+                            System.out.println("Demande du resultat recu");
+                            out.writeObject(resultat);
+                            out.flush();
+                        }
+                        else{
+                            System.out.println("Erreur de vote");
                         }
                     }
+
                     else {
                         //devra repondre quand le client demande le resultat du sondage, on pourrait faire un getState ou quoi
-                        System.out.println("Unknow request");
+
+
+                            System.out.println("Unknown request");
+
                     }
                 } catch (IOException e) {
                     System.out.println("Error while read bytes: " + e);
