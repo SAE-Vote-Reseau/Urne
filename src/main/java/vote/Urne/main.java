@@ -78,7 +78,7 @@ public class main {
     private static class CommandeCreerSondage implements Commande {
         private Sondage sondage;
 
-        private ArrayList<String> parsingStringBetweenQuote(String raw) throws ParsingException {
+        private ArrayList<String> parsingStringBetweenQuote(String raw) {
             ArrayList<String> parameters = new ArrayList<>();
 
             Pattern pattern = Pattern.compile("\"[^\"]+\"");
