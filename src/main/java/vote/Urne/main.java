@@ -58,6 +58,7 @@ public class main {
     }*/
 
     static Urne urne = new Urne(5565);
+    static boolean exit = false;
 
     private static class ParsingException extends Exception {
         public ParsingException(String str){
@@ -106,6 +107,7 @@ public class main {
         public void executer() throws ExecutionFailedException {
             try {
                 urne.lancerNouveauSondage(sondage);
+                System.out.println("Sondage créé");
             }
             catch (Urne.UrneException e){
                 throw new ExecutionFailedException(e.toString());
@@ -120,7 +122,8 @@ public class main {
         @Override
         public void executer() throws ExecutionFailedException {
                 try {
-                    urne.arreterSondage();
+                    urne.arreterRecolte();
+                    System.out.println("Recolte fermé");
                 }
                 catch (Urne.UrneException e){
                     throw new ExecutionFailedException(e.toString());
@@ -159,6 +162,19 @@ public class main {
         }
     }
 
+    private static class CommandeExit implements Commande {
+        @Override
+        public void executer() throws ExecutionFailedException {
+            try {
+                urne.arreterServeur();
+                exit = true;
+            }
+            catch (Urne.UrneException e){
+                throw new ExecutionFailedException(e.toString());
+            }
+        }
+    }
+
     private static Commande parse(String commandeBrut) throws ParsingException{
         int firstSpace = commandeBrut.indexOf(" ");
         String firstWord = commandeBrut;
@@ -175,6 +191,8 @@ public class main {
                     return new CommandeFermerSondage();
                 case "simuler_client":
                     return new CommandeSimulerClient(commandeBrut);
+                case "exit":
+                    return new CommandeExit();
             }
         }
         return null;
@@ -182,10 +200,17 @@ public class main {
 
 
 
-
     public static void main(String[] args) { //Le main est temporaire, il peut etre modifier plus tard
-        System.out.println("Action possible:\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\nfermer_recolte\nsimuler_client [requete] (a des fin de tests, pas besoin de \"\")");
-        while(true) {
+        System.out.println("Action possible:\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\nfermer_recolte\nsimuler_client [requete] (a des fin de tests, pas besoin de \"\")\nexit");
+        try {
+            urne.demarrerServeur();
+        }
+        catch (Urne.UrneException e){
+            System.out.println(e.toString());
+            exit = true;
+        }
+
+        while(!exit) {
             Scanner input = new Scanner(System.in);
             String rawCommand = input.nextLine();
 
