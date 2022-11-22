@@ -15,18 +15,6 @@ public class Sondage implements Serializable {
         this.choix2 = choix2;
     }
 
-    public String getConsigne() {
-        return consigne;
-    }
-
-    public String getChoix1() {
-        return choix1;
-    }
-
-    public String getChoix2() {
-        return choix2;
-    }
-
     @Override
     public String toString(){
         return consigne + ": " + choix1 + "/" + choix2;
