@@ -19,7 +19,7 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
 
     @Override
     public void publicationResultat(BureauDeVote traitement) {
-
+        traitement.changeState(new TermineEtat(traitement));
     }
 
     @Override
