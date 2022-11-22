@@ -75,7 +75,7 @@ public class BureauDeVote extends Thread{
         votesChiffres.add(voteChiffre);
     }
 
-    private void gerer_connexion(Socket socket){
+    private void gererConnexion(Socket socket){
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -100,7 +100,7 @@ public class BureauDeVote extends Thread{
             try {
                 socket = serveur.accept();
                 System.out.println("Un client s'est connecté");
-                gerer_connexion(socket);
+                gererConnexion(socket);
                 socket.close();
             } catch (SocketTimeoutException e) { //Ca permet d'eviter qu'on demande la fermeture du serveur et que le thread reste bloqué sur le accept()
             } catch (IOException e) {
