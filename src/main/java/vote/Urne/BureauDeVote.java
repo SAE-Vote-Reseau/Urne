@@ -31,18 +31,18 @@ public class BureauDeVote extends Thread{
         this.etat = etat;
     }
 
-    void creerSondage(Sondage sondage){
+    public void creerSondage(Sondage sondage){
         etat.creerSondage(this,sondage);
     }
-    void arreterRecolte(){
+    public void arreterRecolte(){
         etat.arreterRecolte(this);
     }
 
-    void publicationResultat(){
+    public void publicationResultat(){
         etat.publicationResultat(this);
     }
 
-    void finirSondage(){
+    public void finirSondage(){
         etat.finirSondage(this);
     }
 
