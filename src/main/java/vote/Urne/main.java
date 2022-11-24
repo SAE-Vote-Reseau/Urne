@@ -1,159 +1,23 @@
 package vote.Urne;
 
-import org.junit.platform.commons.util.StringUtils;
+import vote.Urne.Commandes.Commande;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import vote.Urne.Commandes.*;
+import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
+import vote.Urne.Commandes.Exceptions.ParsingException;
 
 public class main {
     static BureauDeVote urne;
-    static boolean exit = false;
 
-    private static class ParsingException extends Exception {
-        public ParsingException(String str){
-            super(str);
-        }
-    }
-
-    private static class ExecutionFailedException extends Exception {
-        public ExecutionFailedException(String str){
-            super(str);
-        }
-    }
-
-    private interface Commande {
-        void executer() throws ExecutionFailedException;
-    }
-
-    private static class CommandeCreerSondage implements Commande {
-        private Sondage sondage;
-
-        private ArrayList<String> parsingStringBetweenQuote(String raw) {
-            ArrayList<String> parameters = new ArrayList<>();
-
-            Pattern pattern = Pattern.compile("\"[^\"]+\"");
-            Matcher matcher = pattern.matcher(raw);
-
-            while (matcher.find()){
-                String parameter = matcher.group();
-                parameters.add(parameter.substring(1, parameter.length()-1));
-            }
-
-            return parameters;
-        }
-
-        public CommandeCreerSondage(String commandeBrute) throws ParsingException {
-            ArrayList<String> parameters = parsingStringBetweenQuote(commandeBrute);
-
-            if (parameters.size() < 3){
-                throw new ParsingException("Il n'y a pas assez d'arguments");
-            }
-
-            sondage = new Sondage(parameters.get(0),parameters.get(1),parameters.get(2));
-        }
-
-        @Override
-        public void executer() throws ExecutionFailedException {
-                urne.creerSondage(sondage);
-                System.out.println("Sondage créé");
-        }
-    }
-
-    private static class CommandeFermerSondage implements Commande {
-        @Override
-        public void executer() throws ExecutionFailedException {
-            urne.arreterRecolte();
-            System.out.println("Recolte fermé");
-        }
-    }
-
-
-    private abstract static class CommandeSimulerClient implements Commande {
-        private Requete requete;
-
-        public CommandeSimulerClient(Requete requete){
-            this.requete = requete;
-        }
-
-        public void setRequete(Requete requete){
-            this.requete = requete;
-        }
-
-        @Override
-        public void executer() throws ExecutionFailedException{
-            try {
-                Socket clientSimuler = new Socket("127.0.0.1", 5565);
-
-                ObjectOutputStream outputData = new ObjectOutputStream(clientSimuler.getOutputStream());
-                ObjectInputStream inputData = new ObjectInputStream(clientSimuler.getInputStream());
-                outputData.writeObject(requete); //Semble poser probleme
-                outputData.flush();
-
-                Object reponse = inputData.readObject();
-                System.out.println("Reponse du serveur: " + reponse);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                 throw new ExecutionFailedException(e.toString());
-            }
-        }
-    }
-
-    private static class CommandeGetSondage extends CommandeSimulerClient{
-        public CommandeGetSondage(){
-            super(new RequeteGetSondage());
-        }
-    }
-
-    private static class CommandeGetResults extends CommandeSimulerClient{
-        public CommandeGetResults(){
-            super(new RequeteGetResults());
-        }
-    }
-
-    private static class CommandeVote extends CommandeSimulerClient{
-        public CommandeVote(String commandeBrut) throws ParsingException{
-            super(null);
-            String voteChiffre = parseVote(commandeBrut);
-            System.out.println(voteChiffre);
-            setRequete(new RequeteVote(voteChiffre));
-        }
-
-        private String parseVote(String commandeBrut) throws ParsingException{
-            String[] parts = commandeBrut.split(" ");
-
-            if (parts.length <2){
-                throw new ParsingException("Pas assez d'arguments");
-            }
-            return parts[1];
-        }
-
-    }
-
-    private static class CommandeExit implements Commande {
-        @Override
-        public void executer() throws ExecutionFailedException {
-            urne.fermerBureau();
-            try {
-                urne.join();
-            }
-            catch (InterruptedException e) {
-                throw new ExecutionFailedException(e.toString());
-            }
-
-            exit = true;
-        }
-    }
-
-    private static Commande parse(String commandeBrut) throws ParsingException{
+    private static Commande parse(String commandeBrut) throws ParsingException {
         int firstSpace = commandeBrut.indexOf(" ");
         String firstWord = commandeBrut;
         if(firstSpace != -1){
@@ -164,17 +28,17 @@ public class main {
         if(firstWord.length() > 0) {
             switch (firstWord) {
                 case "creer":
-                    return new CommandeCreerSondage(commandeBrut);
+                    return new CommandeCreerSondage(commandeBrut,urne);
                 case "fermer_recolte":
-                    return new CommandeFermerSondage();
+                    return new CommandeFermerSondage(urne);
                 case "getSondage":
-                    return new CommandeGetSondage();
+                    return new CommandeGetSondage(urne);
                 case "getResults":
-                    return new CommandeGetResults();
+                    return new CommandeGetResults(urne);
                 case "vote":
-                    return new CommandeVote(commandeBrut);
+                    return new CommandeVote(commandeBrut,urne);
                 case "exit":
-                    return new CommandeExit();
+                    return new CommandeExit(urne);
             }
         }
         return null;
@@ -200,7 +64,7 @@ public class main {
             e.printStackTrace();
         }
 
-        while(!exit) {
+        while(true) {
             Scanner input = new Scanner(System.in);
             String rawCommand = input.nextLine();
 
