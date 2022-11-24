@@ -3,6 +3,7 @@ package vote.Urne;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -13,7 +14,7 @@ public class BureauDeVote extends Thread{
     private volatile boolean signalArret;
     private ServerSocket serveur;
     private Sondage sondage;
-    private Float[] resultat;
+    private BigInteger[] resultat;
     private boolean voteOuvert;
     private ArrayList<String> votesChiffres;
 

@@ -3,6 +3,7 @@ package vote.Urne;
 import java.io.Serializable;
 
 public class Sondage implements Serializable {
+
     private static final long serialVersionUID = 7339119561699635756L;
     private String consigne;
     private String choix1;
