@@ -9,9 +9,11 @@ public class Sondage implements Serializable {
 
     private static final long serialVersionUID = 7339119561699635756L;
     private String consigne;
+
     private String choix1;
     private String choix2;
     private Integer resultat;
+    private Integer nbVotant;
     private KeyInfo publicKeyInfo;
     //peut etre rajouter le stockage des votes ici
 
@@ -21,6 +23,7 @@ public class Sondage implements Serializable {
         this.choix2 = choix2;
         this.resultat = resultat;
         this.publicKeyInfo = publicKeyInfo;
+        this.nbVotant = 0;
     }
 
 
@@ -34,6 +37,27 @@ public class Sondage implements Serializable {
 
     public Integer getResultat(){
         return resultat;
+    }
+
+    public void setNbVotant(int x){
+        this.nbVotant = x;
+    }
+
+    public Integer getNbVotant(){
+        return this.nbVotant;
+    }
+
+
+    public String getConsigne() {
+        return consigne;
+    }
+
+    public String getChoix1() {
+        return choix1;
+    }
+
+    public String getChoix2() {
+        return choix2;
     }
 
     @Override

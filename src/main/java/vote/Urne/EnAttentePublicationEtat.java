@@ -21,21 +21,36 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
     @Override
     public void publicationResultat(BureauDeVote traitement) {
         try {
-            int nbChoix1 = traitement.getScrutateur().getDechifrer(traitement.getVotesChiffres());
-            traitement.changeState(new TermineEtat(traitement,nbChoix1));
+            if(traitement.getSondage().getNbVotant() > 0) {
+                int nbChoix1 = traitement.getScrutateur().getDechifrer(traitement.getVotesChiffres(), traitement.getSondage().getNbVotant());
+                traitement.changeState(new TermineEtat(traitement,nbChoix1));
+            }
+            else {
+                System.out.println("Aucun votant, sondage annulé");
+                traitement.changeState(new SansSondageEtat(traitement));
+            }
+
         } catch (IOException e){
             System.out.println("Erreur:" + e);
+
+            System.out.println("Sondage annulé");
+            traitement.changeState(new SansSondageEtat(traitement));
         }
         catch (ClassNotFoundException e){
             System.out.println("Resultat illisible: " + e);
-        }
 
-        System.out.println("Sondage annulé");
-        traitement.changeState(new SansSondageEtat(traitement));
+            System.out.println("Sondage annulé");
+            traitement.changeState(new SansSondageEtat(traitement));
+        }
     }
 
     @Override
     public void finirSondage(BureauDeVote traitement) {
-
+        System.out.println("Sondage annulé");
+        traitement.changeState(new SansSondageEtat(traitement));
+    }
+    @Override
+    public String toString(){
+        return "En attente publication";
     }
 }

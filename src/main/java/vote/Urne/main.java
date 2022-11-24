@@ -37,6 +37,10 @@ public class main {
                     return new CommandeVote(commandeBrut,urne);
                 case "exit":
                     return new CommandeExit(urne);
+                case "arreter_sondage":
+                    return new CommandeArreterSondage(urne);
+                case "publier_resultat":
+                    return new CommandePublierResultat(urne);
             }
         }
         return null;
@@ -53,13 +57,14 @@ public class main {
                 "  )(  (__)//   \\\\  \\\\    >>  //   \\\\_,-,>> \\\\,-.||>>_       \\\\     //  \\\\  //  \\\\  \n" +
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
-        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\nfermer_recolte\nexit");
+        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
         System.out.println("---Simulation Client---\ngetSondage\nvote [1 ou 0]\n");
         try {
             urne = new BureauDeVote(5565, "127.0.0.1", 6656);
             urne.start();
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
 
         while(true) {

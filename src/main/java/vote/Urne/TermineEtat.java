@@ -5,6 +5,7 @@ import java.math.BigInteger;
 public class TermineEtat implements EtatBureauDeVote{
 
     public TermineEtat(BureauDeVote bureau,Integer resultat){
+        System.out.println("Resultat dechiffré: " + resultat);
         bureau.getSondage().setResultat(resultat);
         bureau.setVoteOuvert(false);
     }
@@ -27,5 +28,9 @@ public class TermineEtat implements EtatBureauDeVote{
     @Override
     public void finirSondage(BureauDeVote traitement) {
         traitement.changeState(new SansSondageEtat(traitement));
+    }
+    @Override
+    public String toString(){
+        return "Fini, resultat disponible";
     }
 }

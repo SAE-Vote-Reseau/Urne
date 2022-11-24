@@ -1,5 +1,6 @@
 package vote.Urne;
 
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -9,5 +10,4 @@ public class RequeteGetKey extends RequeteScrutateur{ // devrait extends Requete
     public RequeteGetKey(){
         super("getKey");
     }
-
 }

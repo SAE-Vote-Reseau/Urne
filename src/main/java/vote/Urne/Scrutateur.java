@@ -24,7 +24,9 @@ public class Scrutateur {
         ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 
-        out.writeObject(new RequeteGetKey());
+        out.writeObject(rq);
+        out.flush();
+
         return in.readObject();
     }
 
@@ -32,8 +34,8 @@ public class Scrutateur {
         return (KeyInfo) faireRequete(new RequeteGetKey());
     }
 
-    public int getDechifrer(Message m) throws IOException,ClassNotFoundException{
-        return (int) faireRequete(new RequeteDechiffrer(m));
+    public int getDechifrer(Message m, int nbParticipant) throws IOException,ClassNotFoundException{
+        return (int) faireRequete(new RequeteDechiffrer(m,nbParticipant));
     }
 
     public String getAddr() {

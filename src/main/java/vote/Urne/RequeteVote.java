@@ -17,6 +17,7 @@ public class RequeteVote extends Requete{
     @Override
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
         if(bureau.isVoteOuvert()){
+            System.out.println("vote chiffré: " + voteChiffre);
             bureau.ajouterVoteChiffre(voteChiffre);
             out.writeObject("OK");
         }

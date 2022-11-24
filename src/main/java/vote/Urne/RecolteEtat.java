@@ -3,10 +3,8 @@ package vote.Urne;
 import java.util.ArrayList;
 
 public class RecolteEtat implements EtatBureauDeVote{
-    private ArrayList<String> votesChiffres;
 
     public RecolteEtat(BureauDeVote bureau, Sondage sondage){
-        this.votesChiffres = new ArrayList<>();
         bureau.setSondage(sondage);
         bureau.setVoteOuvert(true);
     }
@@ -27,6 +25,12 @@ public class RecolteEtat implements EtatBureauDeVote{
 
     @Override
     public void finirSondage(BureauDeVote traitement) {
+        System.out.println("Sondage annulé");
+        traitement.changeState(new SansSondageEtat(traitement));
+    }
 
+    @Override
+    public String toString(){
+        return "En Recolte";
     }
 }

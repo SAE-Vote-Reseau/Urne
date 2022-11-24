@@ -1,6 +1,7 @@
 package vote.Urne;
 
 import vote.crypto.KeyInfo;
+import vote.crypto.Message;
 
 import java.io.IOException;
 
@@ -9,6 +10,7 @@ public class SansSondageEtat implements EtatBureauDeVote {
     public SansSondageEtat(BureauDeVote bureau){
         bureau.setSondage(null);
         bureau.setVoteOuvert(false);
+        bureau.setVotesChiffres(null);
     }
 
     @Override
@@ -16,6 +18,7 @@ public class SansSondageEtat implements EtatBureauDeVote {
         try {
             KeyInfo publicKey = traitement.getScrutateur().getKeyInfo();
             Sondage sondage = new Sondage(consigne,choix1,choix2,publicKey);
+            System.out.println("pub key: " + sondage.getPublicKeyInfo().getKey().toString());
             traitement.changeState(new RecolteEtat(traitement, sondage));
             System.out.println("Sondage créé");
         }
@@ -40,5 +43,10 @@ public class SansSondageEtat implements EtatBureauDeVote {
     @Override
     public void finirSondage(BureauDeVote traitement) {
 
+    }
+
+    @Override
+    public String toString(){
+        return "Sans etat";
     }
 }
