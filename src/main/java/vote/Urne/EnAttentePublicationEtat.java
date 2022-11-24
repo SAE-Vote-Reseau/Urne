@@ -30,6 +30,8 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
             System.out.println("Resultat illisible: " + e);
         }
 
+        System.out.println("Sondage annulé");
+        traitement.changeState(new SansSondageEtat(traitement));
     }
 
     @Override
