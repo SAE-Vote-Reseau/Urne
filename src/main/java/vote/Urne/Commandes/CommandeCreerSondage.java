@@ -10,7 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandeCreerSondage extends Commande {
-    private Sondage sondage;
+    private String consigne;
+    private String choix1;
+    private String choix2;
 
     public CommandeCreerSondage(String commandeBrute, BureauDeVote urne) throws ParsingException {
         super(urne);
@@ -21,7 +23,9 @@ public class CommandeCreerSondage extends Commande {
             throw new ParsingException("Il n'y a pas assez d'arguments");
         }
 
-        sondage = new Sondage(parameters.get(0),parameters.get(1),parameters.get(2));
+        consigne = parameters.get(0);
+        choix1 = parameters.get(1);
+        choix2 = parameters.get(2);
     }
 
     private ArrayList<String> parsingStringBetweenQuote(String raw) {
@@ -42,7 +46,6 @@ public class CommandeCreerSondage extends Commande {
 
     @Override
     public void executer() throws ExecutionFailedException {
-        getUrne().creerSondage(sondage);
-        System.out.println("Sondage créé");
+        getUrne().creerSondage(consigne,choix1,choix2);
     }
 }

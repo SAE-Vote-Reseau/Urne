@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
+
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 import vote.crypto.KeyInfo;
@@ -18,28 +18,31 @@ public class BureauDeVote extends Thread{
     private volatile boolean signalArret;
     private ServerSocket serveur;
     private Sondage sondage;
-    private BigInteger[] resultat;
+
     private boolean voteOuvert;
+    private Scrutateur scrutateur;
 
     private Message votesChiffres;
-    private KeyInfo publicKeyInfo;
 
-    public BureauDeVote(int port) throws IOException {
+    public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
         etat = new SansSondageEtat(this);
         signalArret = false;
         votesChiffres = null;
         this.serveur = new ServerSocket(port);
         this.serveur.setSoTimeout(500);
 
+        this.scrutateur = new Scrutateur(addrScrut,portScrut);
+
         System.out.println("Serveur configuré sur le port " + port);
+        System.out.println("Scrutateur configuré sur le port " + scrutateur.getPort() + " et l'adresse " + scrutateur.getAddr());
     }
 
     public void changeState(EtatBureauDeVote etat){
         this.etat = etat;
     }
 
-    public void creerSondage(Sondage sondage){
-        etat.creerSondage(this,sondage);
+    public void creerSondage(String consigne, String choix1, String choix2){
+        etat.creerSondage(this,consigne,choix1,choix2);
     }
     public void arreterRecolte(){
         etat.arreterRecolte(this);
@@ -58,12 +61,9 @@ public class BureauDeVote extends Thread{
     }
 
     public boolean resultatDisponible(){
-        return resultat != null;
+        return getSondage() != null && getSondage().getResultat() != null;
     }
 
-    public ServerSocket getServeur(){
-        return serveur;
-    }
 
     public boolean isVoteOuvert() {
         return voteOuvert;
@@ -79,8 +79,9 @@ public class BureauDeVote extends Thread{
     }
 
     public void ajouterVoteChiffre(Message voteChiffre){
-        votesChiffres = ElGamal.Agreger(votesChiffres,voteChiffre,publicKeyInfo.getP());
+        votesChiffres = ElGamal.Agreger(votesChiffres,voteChiffre,sondage.getPublicKeyInfo().getP());
     }
+
 
     private void gererConnexion(Socket socket){
             try {
@@ -120,19 +121,16 @@ public class BureauDeVote extends Thread{
         return sondage;
     }
 
+    public Scrutateur getScrutateur (){
+        return scrutateur;
+    }
+
     public void setSondage(Sondage sondage) {
         this.sondage = sondage;
     }
 
-    public BigInteger[] getResultat() {
-        return resultat;
+    public Message getVotesChiffres(){
+        return votesChiffres;
     }
 
-    public void setResultat(BigInteger[] resultat) {
-        this.resultat = resultat;
-    }
-
-    public KeyInfo getPublicKeyInfo() {
-        return this.publicKeyInfo;
-    }
 }

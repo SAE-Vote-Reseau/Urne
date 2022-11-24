@@ -1,14 +1,15 @@
 package vote.Urne;
 
+import java.io.IOException;
+
 public class EnAttentePublicationEtat implements EtatBureauDeVote {
 
     public EnAttentePublicationEtat(BureauDeVote bureau){
-        bureau.setResultat(null);
         bureau.setVoteOuvert(false);
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, Sondage sondage) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
 
     }
 
@@ -19,7 +20,16 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
 
     @Override
     public void publicationResultat(BureauDeVote traitement) {
-        traitement.changeState(new TermineEtat(traitement));
+        try {
+            int nbChoix1 = traitement.getScrutateur().getDechifrer(traitement.getVotesChiffres());
+            traitement.changeState(new TermineEtat(traitement,nbChoix1));
+        } catch (IOException e){
+            System.out.println("Erreur:" + e);
+        }
+        catch (ClassNotFoundException e){
+            System.out.println("Resultat illisible: " + e);
+        }
+
     }
 
     @Override

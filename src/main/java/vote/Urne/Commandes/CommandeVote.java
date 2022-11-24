@@ -32,11 +32,11 @@ public  class CommandeVote extends CommandeSimulerClient {
             throw new ParsingException("Arguments invalides");
         }
 
-        if(getUrne().getPublicKeyInfo() == null){
+        if(!getUrne().isVoteOuvert()){
             throw  new ExecutionFailedException("Le serveur n'a pas d'information de clé");
         }
 
-        return ElGamal.encrypt(new BigInteger(parts[1]),getUrne().getPublicKeyInfo());
+        return ElGamal.encrypt(new BigInteger(parts[1]),getUrne().getSondage().getPublicKeyInfo());
     }
 
 }

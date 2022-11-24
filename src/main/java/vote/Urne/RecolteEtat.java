@@ -8,12 +8,11 @@ public class RecolteEtat implements EtatBureauDeVote{
     public RecolteEtat(BureauDeVote bureau, Sondage sondage){
         this.votesChiffres = new ArrayList<>();
         bureau.setSondage(sondage);
-        bureau.setResultat(null);
         bureau.setVoteOuvert(true);
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, Sondage sondage) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
     }
 
     @Override

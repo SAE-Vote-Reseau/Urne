@@ -4,13 +4,13 @@ import java.math.BigInteger;
 
 public class TermineEtat implements EtatBureauDeVote{
 
-    public TermineEtat(BureauDeVote bureau){
-        bureau.setResultat(new BigInteger[2]); //provisoire
-        bureau.setVoteOuvert(true);
+    public TermineEtat(BureauDeVote bureau,Integer resultat){
+        bureau.getSondage().setResultat(resultat);
+        bureau.setVoteOuvert(false);
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, Sondage sondage) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
 
     }
 
