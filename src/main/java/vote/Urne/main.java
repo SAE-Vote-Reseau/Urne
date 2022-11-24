@@ -11,8 +11,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import vote.Urne.Commandes.*;
-import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
-import vote.Urne.Commandes.Exceptions.ParsingException;
+import vote.Urne.Commandes.Exceptions.*;
+
 
 public class main {
     static BureauDeVote urne;
