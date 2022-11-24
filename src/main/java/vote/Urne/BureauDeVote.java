@@ -8,6 +8,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import vote.crypto.Message;
+import vote.crypto.ElGamal;
+import vote.crypto.KeyInfo;
+
 
 public class BureauDeVote extends Thread{
     private volatile EtatBureauDeVote etat;
@@ -16,12 +20,14 @@ public class BureauDeVote extends Thread{
     private Sondage sondage;
     private BigInteger[] resultat;
     private boolean voteOuvert;
-    private ArrayList<BigInteger[]> votesChiffres;
+
+    private Message votesChiffres;
+    private KeyInfo publicKeyInfo;
 
     public BureauDeVote(int port) throws IOException {
         etat = new SansSondageEtat(this);
         signalArret = false;
-        votesChiffres = new ArrayList<>();
+        votesChiffres = null;
         this.serveur = new ServerSocket(port);
         this.serveur.setSoTimeout(500);
 
@@ -72,8 +78,8 @@ public class BureauDeVote extends Thread{
         signalArret = true;
     }
 
-    public void ajouterVoteChiffre(BigInteger[] voteChiffre){
-        votesChiffres.add(voteChiffre);
+    public void ajouterVoteChiffre(Message voteChiffre){
+        votesChiffres = ElGamal.Agreger(votesChiffres,voteChiffre,publicKeyInfo.getP());
     }
 
     private void gererConnexion(Socket socket){
@@ -124,5 +130,9 @@ public class BureauDeVote extends Thread{
 
     public void setResultat(BigInteger[] resultat) {
         this.resultat = resultat;
+    }
+
+    public KeyInfo getPublicKeyInfo() {
+        return this.publicKeyInfo;
     }
 }

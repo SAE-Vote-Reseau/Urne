@@ -3,12 +3,13 @@ package vote.Urne;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import vote.crypto.Message;
 
 public class RequeteVote extends Requete{
-    private final BigInteger[] voteChiffre;
+    private final Message voteChiffre;
     private static final long serialVersionUID = -4214054064882241130L;
 
-    public RequeteVote(BigInteger[] voteChiffre){
+    public RequeteVote(Message voteChiffre){
         super("vote");
         this.voteChiffre = voteChiffre;
     }

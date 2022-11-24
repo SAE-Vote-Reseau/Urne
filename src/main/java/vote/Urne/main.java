@@ -17,7 +17,7 @@ import vote.Urne.Commandes.Exceptions.*;
 public class main {
     static BureauDeVote urne;
 
-    private static Commande parse(String commandeBrut) throws ParsingException {
+    private static Commande parse(String commandeBrut) throws ParsingException,ExecutionFailedException {
         int firstSpace = commandeBrut.indexOf(" ");
         String firstWord = commandeBrut;
         if(firstSpace != -1){
@@ -56,7 +56,7 @@ public class main {
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
         System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\nfermer_recolte\nexit");
-        System.out.println("---Simulation Client---\ngetSondage\nvote [c1] [c2]\ngetResults\n");
+        System.out.println("---Simulation Client---\ngetSondage\nvote [1 ou 0]\ngetResults\n");
         try {
             urne = new BureauDeVote(5565);
             urne.start();
