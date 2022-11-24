@@ -1,9 +1,11 @@
 package vote.Urne;
 
+import java.math.BigInteger;
+
 public class TermineEtat implements EtatBureauDeVote{
 
     public TermineEtat(BureauDeVote bureau){
-        bureau.setResultat(new Float[2]); //provisoire
+        bureau.setResultat(new BigInteger[2]); //provisoire
         bureau.setVoteOuvert(true);
     }
 

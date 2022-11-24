@@ -118,11 +118,11 @@ public class BureauDeVote extends Thread{
         this.sondage = sondage;
     }
 
-    public Float[] getResultat() {
+    public BigInteger[] getResultat() {
         return resultat;
     }
 
-    public void setResultat(Float[] resultat) {
+    public void setResultat(BigInteger[] resultat) {
         this.resultat = resultat;
     }
 }

@@ -65,7 +65,6 @@ public class main {
                 urne.creerSondage(sondage);
                 System.out.println("Sondage créé");
         }
-
     }
 
     private static class CommandeFermerSondage implements Commande {
@@ -220,8 +219,6 @@ public class main {
             catch (ExecutionFailedException e){
                 System.out.println("Impossible d'executer la commande : " + e);
             }
-
         }
     }
-
 }
