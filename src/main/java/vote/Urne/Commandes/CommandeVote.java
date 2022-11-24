@@ -5,21 +5,27 @@ import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.RequeteVote;
 import vote.Urne.main;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+
 public  class CommandeVote extends CommandeSimulerClient {
     public CommandeVote(String commandeBrut, BureauDeVote urne) throws ParsingException {
         super(null, urne);
-        String voteChiffre = parseVote(commandeBrut);
-        System.out.println(voteChiffre);
+        BigInteger[] voteChiffre = parseVote(commandeBrut);
+        System.out.println(Arrays.toString(voteChiffre));
         setRequete(new RequeteVote(voteChiffre));
     }
 
-    private String parseVote(String commandeBrut) throws ParsingException {
+    private BigInteger[] parseVote(String commandeBrut) throws ParsingException {
         String[] parts = commandeBrut.split(" ");
 
-        if (parts.length <2){
+        if (parts.length <3){
             throw new ParsingException("Pas assez d'arguments");
         }
-        return parts[1];
+
+        BigInteger c1 = new BigInteger(parts[1]);
+        BigInteger c2 = new BigInteger(parts[2]);
+        return new BigInteger[]{c1,c2};
     }
 
 }

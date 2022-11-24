@@ -16,7 +16,7 @@ public class BureauDeVote extends Thread{
     private Sondage sondage;
     private BigInteger[] resultat;
     private boolean voteOuvert;
-    private ArrayList<String> votesChiffres;
+    private ArrayList<BigInteger[]> votesChiffres;
 
     public BureauDeVote(int port) throws IOException {
         etat = new SansSondageEtat(this);
@@ -72,7 +72,7 @@ public class BureauDeVote extends Thread{
         signalArret = true;
     }
 
-    public void ajouterVoteChiffre(String voteChiffre){
+    public void ajouterVoteChiffre(BigInteger[] voteChiffre){
         votesChiffres.add(voteChiffre);
     }
 

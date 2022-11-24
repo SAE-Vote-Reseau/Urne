@@ -1,6 +1,7 @@
 package vote.Urne;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 public class Sondage implements Serializable {
 
