@@ -11,7 +11,7 @@ public class TermineEtat implements EtatBureauDeVote{
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2,int nbBits) {
 
     }
 

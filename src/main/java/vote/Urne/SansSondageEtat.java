@@ -14,10 +14,15 @@ public class SansSondageEtat implements EtatBureauDeVote {
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2,int nbBits) {
         try {
-            KeyInfo publicKey = traitement.getScrutateur().getKeyInfo();
-            Sondage sondage = new Sondage(consigne,choix1,choix2,publicKey);
+            Sondage sondage = new Sondage(consigne,choix1,choix2);
+            KeyInfo publicKey = traitement.getScrutateur().getKeyInfo(sondage,nbBits);
+            if (publicKey == null){
+                System.out.println("Ce sondage est deja considéré comme en cours...");
+                return;
+            }
+            sondage.setPublicKeyInfo(publicKey);
             System.out.println("pub key: " + sondage.getPublicKeyInfo().getKey().toString());
             traitement.changeState(new RecolteEtat(traitement, sondage));
             System.out.println("Sondage créé");

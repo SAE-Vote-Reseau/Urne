@@ -30,12 +30,12 @@ public class Scrutateur {
         return in.readObject();
     }
 
-    public KeyInfo getKeyInfo() throws IOException,ClassNotFoundException{
-        return (KeyInfo) faireRequete(new RequeteGetKey());
+    public KeyInfo getKeyInfo(Sondage s,int nbBits) throws IOException,ClassNotFoundException{
+        return (KeyInfo) faireRequete(new RequeteLancerSondage(s,nbBits));
     }
 
-    public int getDechifrer(Message m, int nbParticipant) throws IOException,ClassNotFoundException{
-        return (int) faireRequete(new RequeteDechiffrer(m,nbParticipant));
+    public Integer getDechifrer(Message m, int nbParticipant, Sondage s) throws IOException,ClassNotFoundException{
+        return (Integer) faireRequete(new RequeteDechiffrer(m,nbParticipant,s));
     }
 
     public String getAddr() {

@@ -57,7 +57,7 @@ public class main {
                 "  )(  (__)//   \\\\  \\\\    >>  //   \\\\_,-,>> \\\\,-.||>>_       \\\\     //  \\\\  //  \\\\  \n" +
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
-        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
+        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \"nbBitsKeys\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
         System.out.println("---Simulation Client---\ngetSondage\nvote [1 ou 0]\n");
         try {
             urne = new BureauDeVote(5565, "127.0.0.1", 6656);

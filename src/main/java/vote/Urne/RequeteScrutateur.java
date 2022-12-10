@@ -13,4 +13,5 @@ public abstract class RequeteScrutateur implements Serializable {
     public RequeteScrutateur(String prefix){
         this.prefix = prefix;
     }
+
 }

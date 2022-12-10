@@ -2,6 +2,7 @@ package vote.crypto;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 import vote.crypto.Message;
 import vote.crypto.KeyInfo;
@@ -56,7 +57,7 @@ public class ElGamal {
 
     private static int trouverMessage(BigInteger g, BigInteger m,BigInteger p, int nbReponsePossible){
         for (int i= 0; i <= nbReponsePossible; i++){
-            if (g.pow(i).mod(p).compareTo(m) == 0){
+            if (g.modPow(BigInteger.valueOf(i),p).compareTo(m) == 0){
                 return i;
             }
         }
@@ -66,6 +67,16 @@ public class ElGamal {
     public static int decrypt(Message m, KeyInfo privateInfo ,int nbParticipant){
         BigInteger u = m.getC1().modPow(privateInfo.getKey(),privateInfo.getP()).modInverse(privateInfo.getP()); // (c1 ^ sk)^-1
         return trouverMessage(privateInfo.getG(),m.getC2().multiply(u).mod(privateInfo.getP()),privateInfo.getP(),nbParticipant);
+    }
+
+    private static BigInteger[] euclideEtendu(BigInteger a, BigInteger b){ //Ne sert a rien en fait, mais je laisse au cas ou
+        if(b.equals(BigInteger.valueOf(0))){
+            return new BigInteger[]{a,BigInteger.valueOf(1),BigInteger.valueOf(0)};
+        }
+        BigInteger[] duv = euclideEtendu(b, a.mod(b));
+        BigInteger q = a.subtract(a.mod(b)).divide(b);
+
+        return new BigInteger[]{duv[0],duv[2],duv[1].subtract(q.multiply(duv[2]))};
     }
 
     public static Message Agreger(Message m1,Message m2, BigInteger p){
@@ -90,6 +101,12 @@ public class ElGamal {
         Message encrypted3 = Agreger(encrypted,encrypted2,keys[1].getP());
         int m3 = decrypt(encrypted3,keys[0],2);
         System.out.println(m3);
+
+        System.out.println("-----");
+
+        BigInteger[] arr = euclideEtendu(BigInteger.valueOf(8),BigInteger.valueOf(5));
+        System.out.println(Arrays.toString(arr));
+        System.out.println(arr[1].multiply(BigInteger.valueOf(8)).add(arr[2].multiply(BigInteger.valueOf(5))));
 
 
     }

@@ -13,6 +13,7 @@ public class CommandeCreerSondage extends Commande {
     private String consigne;
     private String choix1;
     private String choix2;
+    private int nbBits;
 
     public CommandeCreerSondage(String commandeBrute, BureauDeVote urne) throws ParsingException {
         super(urne);
@@ -26,6 +27,7 @@ public class CommandeCreerSondage extends Commande {
         consigne = parameters.get(0);
         choix1 = parameters.get(1);
         choix2 = parameters.get(2);
+        nbBits = Integer.parseInt(parameters.get(3));
     }
 
     private ArrayList<String> parsingStringBetweenQuote(String raw) {
@@ -46,6 +48,6 @@ public class CommandeCreerSondage extends Commande {
 
     @Override
     public void executer() throws ExecutionFailedException {
-        getUrne().creerSondage(consigne,choix1,choix2);
+        getUrne().creerSondage(consigne,choix1,choix2,nbBits);
     }
 }

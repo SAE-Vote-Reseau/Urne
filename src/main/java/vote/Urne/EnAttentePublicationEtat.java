@@ -9,7 +9,7 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2,int nbBits) {
 
     }
 
@@ -22,8 +22,14 @@ public class EnAttentePublicationEtat implements EtatBureauDeVote {
     public void publicationResultat(BureauDeVote traitement) {
         try {
             if(traitement.getSondage().getNbVotant() > 0) {
-                int nbChoix1 = traitement.getScrutateur().getDechifrer(traitement.getVotesChiffres(), traitement.getSondage().getNbVotant());
-                traitement.changeState(new TermineEtat(traitement,nbChoix1));
+                int nbChoix1 = traitement.getScrutateur().getDechifrer(traitement.getVotesChiffres(), traitement.getSondage().getNbVotant(),traitement.getSondage());
+                if(nbChoix1 == -2){
+                    System.out.println("Le scrutateur ne reconnait pas le sondage, annulation du sondage");
+                    traitement.changeState(new SansSondageEtat(traitement));
+                }
+                else {
+                    traitement.changeState(new TermineEtat(traitement, nbChoix1));
+                }
             }
             else {
                 System.out.println("Aucun votant, sondage annulé");
