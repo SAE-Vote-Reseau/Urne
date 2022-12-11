@@ -20,7 +20,7 @@ public class CommandeCreerSondage extends Commande {
 
         ArrayList<String> parameters = parsingStringBetweenQuote(commandeBrute);
 
-        if (parameters.size() < 3){
+        if (parameters.size() < 4){
             throw new ParsingException("Il n'y a pas assez d'arguments");
         }
 

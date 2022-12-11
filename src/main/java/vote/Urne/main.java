@@ -32,7 +32,7 @@ public class main {
                 case "fermer_recolte":
                     return new CommandeFermerSondage(urne);
                 case "getSondage":
-                    return new CommandeGetSondage(urne);
+                    return new CommandeGetSondage(urne,commandeBrut);
                 case "vote":
                     return new CommandeVote(commandeBrut,urne);
                 case "exit":
@@ -41,6 +41,10 @@ public class main {
                     return new CommandeArreterSondage(urne);
                 case "publier_resultat":
                     return new CommandePublierResultat(urne);
+                case "connect":
+                    return new CommandeConnect(urne,commandeBrut);
+                case "creer_utilisateur":
+                    return new CommandeCreerUtilisateur(urne,commandeBrut);
             }
         }
         return null;
@@ -58,7 +62,8 @@ public class main {
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
         System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \"nbBitsKeys\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
-        System.out.println("---Simulation Client---\ngetSondage\nvote [1 ou 0]\n");
+        System.out.println("---Simulation Client---\ngetSondage [ssid]\nvote [1 ou 0] [ssid]\nconnect \"[email]\" \"[password\"]\n");
+        System.out.println("---Utilisateurs---\ncreer_utilisateur \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\"\n");
         try {
             urne = new BureauDeVote(5565, "127.0.0.1", 6656);
             urne.start();

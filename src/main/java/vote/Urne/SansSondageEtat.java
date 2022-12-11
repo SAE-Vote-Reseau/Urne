@@ -11,6 +11,7 @@ public class SansSondageEtat implements EtatBureauDeVote {
         bureau.setSondage(null);
         bureau.setVoteOuvert(false);
         bureau.setVotesChiffres(null);
+        bureau.viderVotes();
     }
 
     @Override

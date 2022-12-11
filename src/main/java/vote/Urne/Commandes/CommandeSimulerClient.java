@@ -28,7 +28,7 @@ public abstract class CommandeSimulerClient extends Commande {
 
             ObjectOutputStream outputData = new ObjectOutputStream(clientSimuler.getOutputStream());
             ObjectInputStream inputData = new ObjectInputStream(clientSimuler.getInputStream());
-            outputData.writeObject(requete); //Semble poser probleme
+            outputData.writeObject(requete);
             outputData.flush();
 
             Object reponse = inputData.readObject();

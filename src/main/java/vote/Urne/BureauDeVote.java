@@ -7,7 +7,10 @@ import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.HashSet;
+import java.util.Set;
 
+import vote.Urne.metier.Employe;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 
@@ -22,15 +25,18 @@ public class BureauDeVote extends Thread{
     private Scrutateur scrutateur;
 
     private Message votesChiffres;
+    private Set<Employe> aVoter;
 
 
     public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
+        aVoter = new HashSet<>();
         etat = new SansSondageEtat(this);
         signalArret = false;
         this.serveur = new ServerSocket(port);
         this.serveur.setSoTimeout(500);
 
         this.scrutateur = new Scrutateur(addrScrut,portScrut);
+
 
         System.out.println("Serveur configuré sur le port " + port);
         System.out.println("Scrutateur configuré sur le port " + scrutateur.getPort() + " et l'adresse " + scrutateur.getAddr());
@@ -77,16 +83,24 @@ public class BureauDeVote extends Thread{
         signalArret = true;
     }
 
-    public void ajouterVoteChiffre(Message voteChiffre){
-        if(sondage.getNbVotant() >0) {
-            votesChiffres = ElGamal.Agreger(votesChiffres, voteChiffre, sondage.getPublicKeyInfo().getP());
+    public boolean ajouterVoteChiffre(Message voteChiffre, Employe e){
+        if(!aVoter.contains(e)) {
+            if (sondage.getNbVotant() > 0) {
+                votesChiffres = ElGamal.Agreger(votesChiffres, voteChiffre, sondage.getPublicKeyInfo().getP());
+            } else {
+                votesChiffres = voteChiffre;
+            }
+            sondage.setNbVotant(sondage.getNbVotant() + 1);
+
+            aVoter.add(e);
+            return true;
         }
-        else {
-            votesChiffres = voteChiffre;
-        }
-        sondage.setNbVotant(sondage.getNbVotant() + 1);
+        return false;
     }
 
+    public void viderVotes(){
+        aVoter.clear();
+    }
 
     private void gererConnexion(Socket socket){
             try {
