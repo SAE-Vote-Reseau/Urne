@@ -45,6 +45,8 @@ public class main {
                     return new CommandeConnect(urne,commandeBrut);
                 case "creer_utilisateur":
                     return new CommandeCreerUtilisateur(urne,commandeBrut);
+                case "creer_sondage":
+                    return new CommandeClientCreerSondage(urne,commandeBrut);
             }
         }
         return null;
@@ -62,7 +64,7 @@ public class main {
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
         System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \"nbBitsKeys\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
-        System.out.println("---Simulation Client---\ngetSondage [ssid]\nvote [1 ou 0] [ssid]\nconnect \"[email]\" \"[password\"]\n");
+        System.out.println("---Simulation Client---\ngetSondage [ssid]\nvote [1 ou 0] [ssid]\nconnect \"[email]\" \"[password\"]\ncreer_sondage \"[consigne]\" \"[choix1]\" \"[choix2]\" \"[nbBits]\" \"[sessionid]\"\n");
         System.out.println("---Utilisateurs---\ncreer_utilisateur \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\"\n");
         try {
             urne = new BureauDeVote(5565, "127.0.0.1", 6656);

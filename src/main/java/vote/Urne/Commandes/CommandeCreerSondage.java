@@ -44,10 +44,8 @@ public class CommandeCreerSondage extends Commande {
         return parameters;
     }
 
-
-
     @Override
     public void executer() throws ExecutionFailedException {
-        getUrne().creerSondage(consigne,choix1,choix2,nbBits);
+        getUrne().creerSondage(consigne,choix1,choix2,nbBits,"Admin");
     }
 }

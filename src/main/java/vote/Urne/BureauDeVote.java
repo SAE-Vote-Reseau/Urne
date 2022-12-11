@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import vote.Urne.metier.Employe;
+import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 
@@ -25,11 +26,18 @@ public class BureauDeVote extends Thread{
     private Scrutateur scrutateur;
 
     private Message votesChiffres;
-    private Set<Employe> aVoter;
 
-
+    /**
+     * @param port
+     * Le variable port est définie comme le port de notre Bureau de Vote
+     * @param addrScrut
+     * L'adresse IP du scrutateur auxquelle on souhaite se connecter
+     * @param portScrut
+     *Le port de notre Scrutateur
+     * Ce constructeur va
+     * @throws IOException
+     */
     public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
-        aVoter = new HashSet<>();
         etat = new SansSondageEtat(this);
         signalArret = false;
         this.serveur = new ServerSocket(port);
@@ -46,8 +54,8 @@ public class BureauDeVote extends Thread{
         this.etat = etat;
     }
 
-    public void creerSondage(String consigne, String choix1, String choix2,int nbBits){
-        etat.creerSondage(this,consigne,choix1,choix2,nbBits);
+    public void creerSondage(String consigne, String choix1, String choix2,int nbBits, String createur){
+        etat.creerSondage(this,consigne,choix1,choix2,nbBits,createur);
     }
     public void arreterRecolte(){
         etat.arreterRecolte(this);
@@ -84,7 +92,7 @@ public class BureauDeVote extends Thread{
     }
 
     public boolean ajouterVoteChiffre(Message voteChiffre, Employe e){
-        if(!aVoter.contains(e)) {
+        if(!VoteManager.getInstance().aDejaVoter(e.getEmail(),sondage.getUuid().toString())) {
             if (sondage.getNbVotant() > 0) {
                 votesChiffres = ElGamal.Agreger(votesChiffres, voteChiffre, sondage.getPublicKeyInfo().getP());
             } else {
@@ -92,14 +100,10 @@ public class BureauDeVote extends Thread{
             }
             sondage.setNbVotant(sondage.getNbVotant() + 1);
 
-            aVoter.add(e);
+            VoteManager.getInstance().creerVote(e.getEmail(),sondage.getUuid().toString());
             return true;
         }
         return false;
-    }
-
-    public void viderVotes(){
-        aVoter.clear();
     }
 
     private void gererConnexion(Socket socket){

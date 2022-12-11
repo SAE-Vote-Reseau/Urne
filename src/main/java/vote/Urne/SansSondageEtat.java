@@ -1,5 +1,6 @@
 package vote.Urne;
 
+import vote.Urne.metier.SondageManager;
 import vote.crypto.KeyInfo;
 import vote.crypto.Message;
 
@@ -11,13 +12,12 @@ public class SansSondageEtat implements EtatBureauDeVote {
         bureau.setSondage(null);
         bureau.setVoteOuvert(false);
         bureau.setVotesChiffres(null);
-        bureau.viderVotes();
     }
 
     @Override
-    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2,int nbBits) {
+    public void creerSondage(BureauDeVote traitement, String consigne, String choix1, String choix2,int nbBits, String createur) {
         try {
-            Sondage sondage = new Sondage(consigne,choix1,choix2);
+            Sondage sondage = SondageManager.getInstance().creerSondage(consigne,choix1,choix2,createur);
             KeyInfo publicKey = traitement.getScrutateur().getKeyInfo(sondage,nbBits);
             if (publicKey == null){
                 System.out.println("Ce sondage est deja considéré comme en cours...");

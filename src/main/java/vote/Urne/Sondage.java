@@ -10,24 +10,41 @@ import java.util.UUID;
 public class Sondage implements Serializable {
 
     private static final long serialVersionUID = 7339119561699635756L;
-    private UUID uuid = UUID.randomUUID();
+    private UUID uuid;
 
     private String consigne;
 
     private String choix1;
     private String choix2;
     private Integer resultat;
+    private String emailCreateur;
+
     private Integer nbVotant;
     private KeyInfo publicKeyInfo;
-    //peut etre rajouter le stockage des votes ici
 
-    public Sondage(String consigne,String choix1,String choix2){
+
+    public Sondage(String consigne,String choix1,String choix2, String emailCreateur){
         this.consigne = consigne;
         this.choix1 = choix1;
         this.choix2 = choix2;
         this.resultat = resultat;
         this.publicKeyInfo = publicKeyInfo;
         this.nbVotant = 0;
+        this.uuid = UUID.randomUUID();
+        this.emailCreateur = emailCreateur;
+    }
+
+    public Sondage(String consigne,String choix1,String choix2, String emailCreateur, String uuid){
+        this.consigne = consigne;
+        this.choix1 = choix1;
+        this.choix2 = choix2;
+        this.resultat = resultat;
+        this.publicKeyInfo = publicKeyInfo;
+        this.nbVotant = 0;
+
+        this.emailCreateur = emailCreateur;
+
+        this.uuid = UUID.fromString(uuid);
     }
 
 
@@ -66,6 +83,14 @@ public class Sondage implements Serializable {
 
     public String getChoix2() {
         return choix2;
+    }
+
+    public UUID getUuid(){
+        return uuid;
+    }
+
+    public String getEmailCreateur(){
+        return emailCreateur;
     }
 
     @Override
