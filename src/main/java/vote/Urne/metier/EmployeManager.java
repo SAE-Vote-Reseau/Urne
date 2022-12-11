@@ -1,6 +1,7 @@
 package vote.Urne.metier;
 
 import vote.Urne.metier.Stockage.Stockage;
+import vote.Urne.metier.Stockage.StockageEmployeBdd;
 import vote.Urne.metier.Stockage.StockageEmployeScrub;
 
 import java.nio.charset.StandardCharsets;
@@ -9,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class EmployeManager {
-    private Stockage<Employe,String> stockage = StockageEmployeScrub.getInstance();
+    private Stockage<Employe,String> stockage = StockageEmployeBdd.getInstance();
     private static EmployeManager instance = null;
 
     private EmployeManager(){

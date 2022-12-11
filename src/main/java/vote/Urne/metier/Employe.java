@@ -26,6 +26,17 @@ public class Employe implements Serializable {
         return motDePasse;
     }
 
+    public String getNom(){
+        return nom;
+    }
+
+    public String getPrenom(){
+        return prenom;
+    }
+    public boolean getIsAdmin(){
+        return estAdmin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
