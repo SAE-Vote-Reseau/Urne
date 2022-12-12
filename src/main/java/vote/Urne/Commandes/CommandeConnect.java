@@ -15,7 +15,7 @@ public class CommandeConnect extends CommandeSimulerClient{
         super(null, urne);
         ArrayList<String> p = parsingStringBetweenQuote(raw);
 
-        if (p.size() < 1){
+        if (p.size() < 2){
             throw new ParsingException("pas assez de parametres");
         }
 

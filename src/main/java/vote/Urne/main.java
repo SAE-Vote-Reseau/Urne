@@ -53,6 +53,8 @@ public class main {
                     return new CommandeSetAdmin(urne,commandeBrut);
                 case "change_password":
                     return new CommandeChangePassword(urne,commandeBrut);
+                case "getAllUsers":
+                    return new CommandeGetAllUsers(commandeBrut,urne);
             }
         }
         return null;
@@ -71,7 +73,7 @@ public class main {
 
         System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \"nbBitsKeys\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
         System.out.println("---Simulation Client---\ngetSondage [ssid]\nvote [1 ou 0] [ssid]\nconnect \"[email]\" \"[password\"]\nchange_password \"[new_password]\" \"[ssid]\"\n");
-        System.out.println("---Simulation Admin---\ncreer_sondage \"[consigne]\" \"[choix1]\" \"[choix2]\" \"[nbBits]\" \"[sessionid]\"\nupdate_user \"[email]\" \"[nom]\" \"[prenom]\" \"[mdp]\" \"[true/false: admin]\" \"[sessionId]\"\nset_admin \"[email]\" \"[true/false :setAdmin]\" \"[sessionId]\"\n");
+        System.out.println("---Simulation Admin---\ncreer_sondage \"[consigne]\" \"[choix1]\" \"[choix2]\" \"[nbBits]\" \"[sessionid]\"\nupdate_user \"[email]\" \"[nom]\" \"[prenom]\" \"[mdp]\" \"[true/false: admin]\" \"[sessionId]\"\nset_admin \"[email]\" \"[true/false :setAdmin]\" \"[sessionId]\"\ngetAllUsers [ssid]\n");
         System.out.println("---Utilisateurs---\ncreer_utilisateur \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\"\n");
         try {
             urne = new BureauDeVote(5565, "127.0.0.1", 6656);

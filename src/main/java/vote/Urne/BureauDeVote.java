@@ -15,6 +15,11 @@ import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+
 
 public class BureauDeVote extends Thread{
     private volatile EtatBureauDeVote etat;
@@ -40,6 +45,7 @@ public class BureauDeVote extends Thread{
     public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
         etat = new SansSondageEtat(this);
         signalArret = false;
+        //SSLContext sslContext = SSLContextConf.setSystemPropertySSLContextServer("SAEKeyStore.jks","auuuugh");
         this.serveur = new ServerSocket(port);
         this.serveur.setSoTimeout(500);
 
