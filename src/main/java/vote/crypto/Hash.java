@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Hash {
 
-    public static String pepper = "";
+    public static String pepper = "/I-*s!raè+l";
 
     public static byte[][] hashPassword(String toHash){
         toHash += pepper; //pepper
