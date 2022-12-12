@@ -2,6 +2,7 @@ package vote.Urne;
 
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
+import vote.crypto.Hash;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -32,7 +33,7 @@ public class RequeteUpdateUser extends Requete{
     @Override
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
         if(ConnexionsHandler.getInstance().isConnected(ssid) && ConnexionsHandler.getInstance().getEmploye(ssid).getIsAdmin()){
-            byte[][] hash = EmployeManager.getInstance().hashPassword(motDePasse);
+            byte[][] hash = Hash.hashPassword(motDePasse);
             Employe update = new Employe(email,nom,prenom,hash[0],hash[1],estAdmin);
             EmployeManager.getInstance().mettreAJourEmploye(update);
             ConnexionsHandler.getInstance().disconnectIfConnected(update); //obliger pour mettre a jour

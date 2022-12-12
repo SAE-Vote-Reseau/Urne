@@ -3,6 +3,7 @@ package vote.Urne;
 import org.mindrot.jbcrypt.BCrypt;
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
+import vote.crypto.Hash;
 import vote.crypto.Message;
 
 import java.nio.charset.StandardCharsets;
@@ -22,7 +23,7 @@ public class ConnexionsHandler {
         EmployeManager manager = EmployeManager.getInstance();
         Employe e = manager.getEmploye(email);
 
-        if(e == null || !checkPasswordFor(email,motDePasse)){
+        if(e == null || !Hash.checkPasswordFor(email,motDePasse)){
             return null;
         }
         String sessionId = UUID.randomUUID().toString();
@@ -31,10 +32,6 @@ public class ConnexionsHandler {
         return new ConnexionReponse(sessionId,e);
     }
 
-    public boolean checkPasswordFor(String email, String password){
-        Employe e = EmployeManager.getInstance().getEmploye(email);
-        return  e != null && BCrypt.checkpw(password,new String(e.getMotDePasse(),StandardCharsets.UTF_8));
-    }
 
     public void disconnect(String sessionId){
         mapSessionId.remove(sessionId);
