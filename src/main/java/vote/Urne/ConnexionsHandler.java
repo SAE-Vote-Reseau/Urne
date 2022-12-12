@@ -37,7 +37,7 @@ public class ConnexionsHandler {
     public void disconnectIfConnected(Employe e){
         List<String> ssid = getSSIDEmploye(e);
         for (String connexion: ssid){
-            mapSessionId.remove(ssid);
+            mapSessionId.remove(connexion);
         }
     }
 

@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 public class RequeteUpdateUser extends Requete{
     private Employe employe;
     private String ssid;
+    private static final long serialVersionUID = 6751544680743635897L;
 
     /* l'email n'est pas modiable, car c'est sa clé primaire*/
     public RequeteUpdateUser(Employe employe,String sessionId) {
