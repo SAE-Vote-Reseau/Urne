@@ -7,9 +7,7 @@ import vote.crypto.Message;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class ConnexionsHandler {
     private static ConnexionsHandler instance = null;
@@ -34,6 +32,25 @@ public class ConnexionsHandler {
 
     public void disconnect(String sessionId){
         mapSessionId.remove(sessionId);
+    }
+
+    public void disconnectIfConnected(Employe e){
+        List<String> ssid = getSSIDEmploye(e);
+        for (String connexion: ssid){
+            mapSessionId.remove(ssid);
+        }
+    }
+
+    public List<String> getSSIDEmploye(Employe e){
+        ArrayList<String> ssid = new ArrayList<>();
+        if(mapSessionId.containsValue(e)){
+            for(Map.Entry<String,Employe> set : mapSessionId.entrySet()){
+                if(set.getValue().equals(e)){
+                    ssid.add(set.getKey());
+                }
+            }
+        }
+        return ssid;
     }
 
     public boolean isConnected(String sessionId){

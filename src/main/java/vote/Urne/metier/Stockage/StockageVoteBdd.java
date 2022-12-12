@@ -61,7 +61,7 @@ public class StockageVoteBdd implements Stockage<Vote,String[]> {
 
             statement.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 

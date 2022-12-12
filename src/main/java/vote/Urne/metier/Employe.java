@@ -42,12 +42,12 @@ public class Employe implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employe employe = (Employe) o;
-        return Objects.equals(email, employe.email) && Objects.equals(nom, employe.nom) && Objects.equals(prenom, employe.prenom) && Objects.equals(motDePasse, employe.motDePasse) && Objects.equals(estAdmin,employe.estAdmin);
+        return Objects.equals(email, employe.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, nom, prenom, motDePasse,estAdmin);
+        return Objects.hash(email);
     }
 
     @Override

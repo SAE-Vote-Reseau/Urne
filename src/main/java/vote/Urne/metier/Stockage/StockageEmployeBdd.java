@@ -57,7 +57,7 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         SQLUtils sql = SQLUtils.getInstance();
         Connection c = sql.getConnection();
 
-        String requete = "UPDATE SET email = ?, Nom = ?, Prenom = ?, password = ?, isAdmin = ? WHERE email = ?";
+        String requete = "UPDATE Utilisateur SET email = ?, Nom = ?, Prenom = ?, password = ?, isAdmin = ? WHERE email = ?";
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             statement.setString(1,employe.getEmail());
             statement.setString(2,employe.getNom());
