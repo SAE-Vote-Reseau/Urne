@@ -13,7 +13,6 @@ public class RequeteGetSondage extends Requete{
 
     @Override
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
-        System.out.println("Demande sondage actuel recu");
         out.writeObject(bureau.aSondageEnCours() && ConnexionsHandler.getInstance().isConnected(ssId) ? bureau.getSondage():null);
         out.flush();
     }
