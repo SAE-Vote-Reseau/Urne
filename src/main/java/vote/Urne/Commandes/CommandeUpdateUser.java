@@ -16,7 +16,7 @@ public class CommandeUpdateUser extends CommandeSimulerClient{
     public CommandeUpdateUser(BureauDeVote urne, String raw) throws ParsingException {
         super(null, urne);
         List<String> p = parsingStringBetweenQuote(raw);
-        if(p.size() < 5){
+        if(p.size() < 6){
             throw new ParsingException("Pas assez d'arguments");
         }
         Requete r = new RequeteUpdateUser(p.get(0),p.get(2),p.get(1),p.get(3),Boolean.parseBoolean(p.get(4)),p.get(5));
