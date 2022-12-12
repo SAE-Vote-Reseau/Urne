@@ -1,7 +1,6 @@
 package vote.Urne.metier.Stockage;
 
-import vote.Urne.Sondage;
-import vote.Urne.metier.Employe;
+import vote.Urne.metier.Sondage;
 import vote.Urne.metier.Stockage.Conf.SQLUtils;
 
 import java.sql.*;

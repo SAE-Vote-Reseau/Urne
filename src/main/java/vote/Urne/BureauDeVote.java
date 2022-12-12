@@ -3,22 +3,18 @@ package vote.Urne;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.HashSet;
-import java.util.Set;
 
+import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.etats.EtatBureauDeVote;
+import vote.Urne.etats.SansSondageEtat;
 import vote.Urne.metier.Employe;
+import vote.Urne.metier.Sondage;
 import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
-
-import javax.net.ServerSocketFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
 
 
 public class BureauDeVote extends Thread{

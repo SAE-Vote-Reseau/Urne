@@ -1,6 +1,5 @@
 package vote.Urne.metier.Stockage;
 
-import vote.Urne.Sondage;
 import vote.Urne.metier.Stockage.Conf.SQLUtils;
 import vote.Urne.metier.Vote;
 

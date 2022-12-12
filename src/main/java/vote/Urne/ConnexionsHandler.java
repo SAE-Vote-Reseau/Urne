@@ -1,14 +1,10 @@
 package vote.Urne;
 
-import org.mindrot.jbcrypt.BCrypt;
+import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.ConnexionReponse;
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
 import vote.crypto.Hash;
-import vote.crypto.Message;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class ConnexionsHandler {
@@ -19,7 +15,7 @@ public class ConnexionsHandler {
         mapSessionId = new HashMap<>();
     }
 
-    public ConnexionReponse connect(String email,String motDePasse){
+    public ConnexionReponse connect(String email, String motDePasse){
         EmployeManager manager = EmployeManager.getInstance();
         Employe e = manager.getEmploye(email);
 

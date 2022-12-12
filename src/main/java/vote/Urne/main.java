@@ -3,15 +3,16 @@ package vote.Urne;
 import vote.Urne.Commandes.Commande;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import vote.Urne.Commandes.*;
+
+import vote.Urne.Commandes.CommandeUrne.*;
 import vote.Urne.Commandes.Exceptions.*;
+import vote.Urne.Commandes.SimulerClient.*;
+import vote.Urne.Commandes.SimulerClient.CommandeAdmin.*;
+import vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat.CommandeClientCreerSondage;
+import vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat.CommandeClientFermerRecolte;
+import vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat.CommandeClientFinirSondage;
+import vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat.CommandeClientPublierResultat;
 
 
 public class main {

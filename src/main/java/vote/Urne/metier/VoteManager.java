@@ -1,8 +1,6 @@
 package vote.Urne.metier;
 
-import vote.Urne.Sondage;
 import vote.Urne.metier.Stockage.Stockage;
-import vote.Urne.metier.Stockage.StockageReferundumBdd;
 import vote.Urne.metier.Stockage.StockageVoteBdd;
 
 import java.util.List;

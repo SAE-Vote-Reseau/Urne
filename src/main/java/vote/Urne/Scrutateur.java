@@ -1,5 +1,9 @@
 package vote.Urne;
 
+import vote.Urne.Requete.RequeteScrutateur.RequeteDechiffrer;
+import vote.Urne.Requete.RequeteScrutateur.RequeteLancerSondage;
+import vote.Urne.Requete.RequeteScrutateur.RequeteScrutateur;
+import vote.Urne.metier.Sondage;
 import vote.crypto.KeyInfo;
 import vote.crypto.Message;
 
@@ -30,7 +34,7 @@ public class Scrutateur {
         return in.readObject();
     }
 
-    public KeyInfo getKeyInfo(Sondage s,int nbBits) throws IOException,ClassNotFoundException{
+    public KeyInfo getKeyInfo(Sondage s, int nbBits) throws IOException,ClassNotFoundException{
         return (KeyInfo) faireRequete(new RequeteLancerSondage(s,nbBits));
     }
 
