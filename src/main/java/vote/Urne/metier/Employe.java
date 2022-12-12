@@ -8,18 +8,25 @@ public class Employe implements Serializable {
     private static final long serialVersionUID = -3716016828868854333L;
     private String email,nom,prenom;
     private byte[] motDePasse;
+    private byte[] salt;
     boolean estAdmin;
 
-    public Employe(String email,String nom,String prenom, byte[] motDePasse, boolean estAdmin){
+    public Employe(String email,String nom,String prenom, byte[] motDePasse,byte[] salt, boolean estAdmin){
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
         this.motDePasse = motDePasse;
+        this.salt = salt;
         this.estAdmin = estAdmin;
     }
 
+
     public String getEmail(){
         return email;
+    }
+
+    public byte[] getSalt(){
+        return salt;
     }
 
     public byte[] getMotDePasse(){
@@ -35,6 +42,9 @@ public class Employe implements Serializable {
     }
     public boolean getIsAdmin(){
         return estAdmin;
+    }
+    public void setIsAdmin(boolean v){
+        estAdmin = v;
     }
 
     @Override

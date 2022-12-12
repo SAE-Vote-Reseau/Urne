@@ -16,6 +16,7 @@ jar{
 
 dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation "org.mindrot:jbcrypt:0.4"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'

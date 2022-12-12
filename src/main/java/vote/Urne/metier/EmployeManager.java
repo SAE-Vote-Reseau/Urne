@@ -1,12 +1,10 @@
 package vote.Urne.metier;
 
+import org.mindrot.jbcrypt.BCrypt;
 import vote.Urne.metier.Stockage.Stockage;
 import vote.Urne.metier.Stockage.StockageEmployeBdd;
-import vote.Urne.metier.Stockage.StockageEmployeScrub;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class EmployeManager {
@@ -25,22 +23,19 @@ public class EmployeManager {
     }
 
     public Employe creerEmploye(String email, String nom, String prenom, String motDePasse, boolean estAdmin){
-        Employe e = new Employe(email,nom,prenom,hashSHA256(motDePasse),estAdmin);
+        byte[][] hash = hashPassword(motDePasse);
+        Employe e = new Employe(email,nom,prenom,hash[0],hash[1],estAdmin);
         stockage.enregistrer(e);
 
         return e;
     }
 
-    public byte[] hashSHA256(String toHash) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            return digest.digest(toHash.getBytes(StandardCharsets.UTF_8));
-        }
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public byte[][] hashPassword(String toHash){
+        String salt = BCrypt.gensalt(12);
+        return new byte[][]{BCrypt.hashpw(toHash,salt).getBytes(StandardCharsets.UTF_8),salt.getBytes(StandardCharsets.UTF_8)};
     }
+
+
 
     public void mettreAJourEmploye(Employe e){
         stockage.mettreAJour(e);

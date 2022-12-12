@@ -19,7 +19,7 @@ public class CommandeUpdateUser extends CommandeSimulerClient{
         if(p.size() < 5){
             throw new ParsingException("Pas assez d'arguments");
         }
-        Requete r = new RequeteUpdateUser(new Employe(p.get(0), p.get(1), p.get(2), EmployeManager.getInstance().hashSHA256(p.get(3)), Boolean.parseBoolean(p.get(4))), p.get(5));
+        Requete r = new RequeteUpdateUser(p.get(0),p.get(1),p.get(2),p.get(3),Boolean.parseBoolean(p.get(4)),p.get(5));
         super.setRequete(r);
     }
 

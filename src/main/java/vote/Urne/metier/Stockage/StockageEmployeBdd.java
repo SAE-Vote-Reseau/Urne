@@ -23,13 +23,14 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         SQLUtils sql = SQLUtils.getInstance();
         Connection c = sql.getConnection();
 
-        String requete = "INSERT INTO Utilisateur(email,Nom,Prenom,password,isAdmin) VALUES(?,?,?,?,?)";
+        String requete = "INSERT INTO Utilisateur(email,Nom,Prenom,password,isAdmin,salt) VALUES(?,?,?,?,?,?)";
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             statement.setString(1,employe.getEmail());
             statement.setString(2,employe.getNom());
             statement.setString(3,employe.getPrenom());
             statement.setBytes(4,employe.getMotDePasse());
             statement.setBoolean(5,employe.getIsAdmin());
+            statement.setBytes(6,employe.getSalt());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -57,14 +58,15 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         SQLUtils sql = SQLUtils.getInstance();
         Connection c = sql.getConnection();
 
-        String requete = "UPDATE Utilisateur SET email = ?, Nom = ?, Prenom = ?, password = ?, isAdmin = ? WHERE email = ?";
+        String requete = "UPDATE Utilisateur SET email = ?, Nom = ?, Prenom = ?, password = ?, isAdmin = ?, salt = ? WHERE email = ?";
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             statement.setString(1,employe.getEmail());
             statement.setString(2,employe.getNom());
             statement.setString(3,employe.getPrenom());
             statement.setBytes(4,employe.getMotDePasse());
             statement.setBoolean(5,employe.getIsAdmin());
-            statement.setString(6,employe.getEmail());
+            statement.setBytes(6,employe.getSalt());
+            statement.setString(7,employe.getEmail());
 
             statement.executeUpdate();
         } catch (SQLException ex) {
@@ -82,7 +84,7 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             try(ResultSet resultSet = statement.executeQuery();) {
                 while(resultSet.next()) {
-                    Employe e = new Employe(resultSet.getString(3), resultSet.getString(1), resultSet.getString(2), resultSet.getBytes(4), resultSet.getBoolean(5));
+                    Employe e = new Employe(resultSet.getString(3), resultSet.getString(1), resultSet.getString(2), resultSet.getBytes(4),resultSet.getBytes(6), resultSet.getBoolean(5));
                     employes.add(e);
                 }
             }
@@ -102,8 +104,9 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             statement.setString(1,email);
             try(ResultSet resultSet = statement.executeQuery();) {
-                resultSet.next();
-                e = new Employe(resultSet.getString(3),resultSet.getString(1),resultSet.getString(2),resultSet.getBytes(4),resultSet.getBoolean(5));
+                if(resultSet.next()) {
+                    e = new Employe(resultSet.getString(3), resultSet.getString(1), resultSet.getString(2), resultSet.getBytes(4), resultSet.getBytes(6), resultSet.getBoolean(5));
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

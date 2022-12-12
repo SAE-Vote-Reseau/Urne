@@ -18,7 +18,7 @@ public class RequeteConnexion extends Requete{
         ConnexionsHandler connexions = ConnexionsHandler.getInstance();
         ConnexionReponse reponse = connexions.connect(email,password);
 
-        System.out.println(reponse == null ? "Identifiant incorrect ou deja connecté": "Bien connecté avec le sessionId " + reponse.getSsid());
+        System.out.println(reponse == null ? "Identifiant incorrect": "Bien connecté avec le sessionId " + reponse.getSsid());
 
         out.writeObject(reponse);
         out.flush();

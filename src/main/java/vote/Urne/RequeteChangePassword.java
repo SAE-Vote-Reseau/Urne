@@ -21,7 +21,8 @@ public class RequeteChangePassword extends Requete{
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
         if(ConnexionsHandler.getInstance().isConnected(ssid)){
             Employe e = ConnexionsHandler.getInstance().getEmploye(ssid);
-            Employe m = new Employe(e.getEmail(),e.getNom(),e.getPrenom(),EmployeManager.getInstance().hashSHA256(newPassword), e.getIsAdmin());
+            byte[][] hash = EmployeManager.getInstance().hashPassword(newPassword);
+            Employe m = new Employe(e.getEmail(),e.getNom(),e.getPrenom(),hash[0],hash[1], e.getIsAdmin());
             EmployeManager.getInstance().mettreAJourEmploye(m);
             ConnexionsHandler.getInstance().disconnectIfConnected(m);
             out.writeObject("OK");

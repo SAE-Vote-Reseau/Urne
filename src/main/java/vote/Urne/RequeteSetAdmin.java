@@ -23,8 +23,8 @@ public class RequeteSetAdmin extends Requete{
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
         if(ConnexionsHandler.getInstance().isConnected(ssid) && ConnexionsHandler.getInstance().getEmploye(ssid).getIsAdmin()){
             Employe e = EmployeManager.getInstance().getEmploye(email);
-            Employe m = new Employe(e.getEmail(),e.getNom(),e.getPrenom(),e.getMotDePasse(),setAdmin);
-            EmployeManager.getInstance().mettreAJourEmploye(m);
+            e.setIsAdmin(setAdmin);
+            EmployeManager.getInstance().mettreAJourEmploye(e);
             ConnexionsHandler.getInstance().disconnectIfConnected(e);
             out.writeObject("OK");
         }else {

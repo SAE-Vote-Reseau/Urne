@@ -20,7 +20,9 @@ public class SansSondageEtat implements EtatBureauDeVote {
             Sondage sondage = SondageManager.getInstance().creerSondage(consigne,choix1,choix2,createur);
             KeyInfo publicKey = traitement.getScrutateur().getKeyInfo(sondage,nbBits);
             if (publicKey == null){
-                System.out.println("Ce sondage est deja considéré comme en cours...");
+                System.out.println("Erreur lors de la creation du sondage, verifier que la taille de clé soit conforme ou que le sondage n'est pas deja en cours");
+                System.out.println(sondage.getUuid());
+                SondageManager.getInstance().supprimerSondage(sondage.getUuid().toString());
                 return;
             }
             sondage.setPublicKeyInfo(publicKey);

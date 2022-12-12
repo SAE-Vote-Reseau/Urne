@@ -1,5 +1,6 @@
 package vote.Urne;
 
+import org.mindrot.jbcrypt.BCrypt;
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
 import vote.crypto.Message;
@@ -21,13 +22,18 @@ public class ConnexionsHandler {
         EmployeManager manager = EmployeManager.getInstance();
         Employe e = manager.getEmploye(email);
 
-        if(e == null || mapSessionId.containsValue(e) || !(Arrays.equals(e.getMotDePasse(), manager.hashSHA256(motDePasse)))){
+        if(e == null || !checkPasswordFor(email,motDePasse)){
             return null;
         }
         String sessionId = UUID.randomUUID().toString();
         mapSessionId.put(sessionId,e);
 
         return new ConnexionReponse(sessionId,e);
+    }
+
+    public boolean checkPasswordFor(String email, String password){
+        Employe e = EmployeManager.getInstance().getEmploye(email);
+        return  e != null && BCrypt.checkpw(password,new String(e.getMotDePasse(),StandardCharsets.UTF_8));
     }
 
     public void disconnect(String sessionId){
