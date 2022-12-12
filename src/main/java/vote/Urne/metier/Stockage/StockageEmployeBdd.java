@@ -43,7 +43,7 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
         SQLUtils sql = SQLUtils.getInstance();
         Connection c = sql.getConnection();
 
-        String requete = "DELETE FROM Utilisateur WHERE email=?)";
+        String requete = "DELETE FROM Utilisateur WHERE email=?";
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             statement.setString(1,email);
 
