@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class RequeteArreterSondage extends Requete {
+    private static final long serialVersionUID = 2406585980453091613L;
     private String ssid;
 
     public RequeteArreterSondage(String ssid) {

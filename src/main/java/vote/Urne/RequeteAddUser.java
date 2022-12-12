@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class RequeteAddUser extends Requete {
+    private static final long serialVersionUID = -4206407180651779866L;
     private String email;
     private String prenom;
     private String nom;
