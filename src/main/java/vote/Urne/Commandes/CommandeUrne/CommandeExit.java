@@ -5,6 +5,11 @@ import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.main;
 
+/**
+ * Cette comande un peu moins complexe que ces respectives frères commandes
+ * Cette commande va attendre la fin de l'execution du Thread {@link BureauDeVote BureauDeVote}
+ * puis va terminer le programme
+ */
 public class CommandeExit extends Commande {
     public CommandeExit(BureauDeVote urne){
         super(urne);
