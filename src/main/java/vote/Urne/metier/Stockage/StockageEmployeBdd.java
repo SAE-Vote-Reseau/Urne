@@ -34,7 +34,7 @@ public class StockageEmployeBdd implements Stockage<Employe,String> {
 
             statement.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 
