@@ -7,6 +7,14 @@ import vote.crypto.Hash;
 
 import java.util.*;
 
+/**
+ * Cette classe forme partie de l'implementation d'une Base de Données
+ * dans notre application
+ * <p>
+ *     Cette classe fait la gestion de connexion d'un utilisateur avec l'aide des données de notre
+ *     Base de Donnees
+ * </p>
+ */
 public class ConnexionsHandler {
     private static ConnexionsHandler instance = null;
     private HashMap<String,Employe> mapSessionId;//devra etre Utilisateur tout court plus tard
