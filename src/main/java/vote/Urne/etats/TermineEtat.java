@@ -5,6 +5,20 @@ import vote.Urne.etats.EtatBureauDeVote;
 import vote.Urne.etats.SansSondageEtat;
 import vote.Urne.metier.SondageManager;
 
+/**
+ * Classe aui effectue les fonctionnalités de Bureau de Vote dans l'état :
+ *
+ * <h2>
+ *     Terminer
+ * </h2>
+ *
+ * <p>
+ *     Même si c'est l'état le plus simpliste de notre groupe d'états
+ *     Il l'état le plus important
+ *     Puisqu'il permet de donner une fin a notre application
+ * </p>
+ *
+ */
 public class TermineEtat implements EtatBureauDeVote {
 
     public TermineEtat(BureauDeVote bureau, Integer resultat){

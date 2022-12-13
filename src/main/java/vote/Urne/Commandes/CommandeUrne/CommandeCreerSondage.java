@@ -9,11 +9,17 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Cette Commande va permettre de creer un Sondage au sein de notre {@link BureauDeVote}
+ * Au contraire de {@link CommandeArreterSondage} cette commande analyse une valeur
+ * et l'execute si elle est correcte.
+ */
 public class CommandeCreerSondage extends Commande {
     private String consigne;
     private String choix1;
     private String choix2;
     private int nbBits;
+
 
     public CommandeCreerSondage(String commandeBrute, BureauDeVote urne) throws ParsingException {
         super(urne);

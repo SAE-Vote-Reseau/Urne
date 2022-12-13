@@ -13,6 +13,11 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Cette commande va creer un utilisateur avec une chaine de caractères prise en parametre
+ * L'Utilisateur crée va ensuite être ajoute a notre Base de Données avec l'aide de {@link EmployeManager}.
+ *
+ */
 public class CommandeCreerUtilisateur extends Commande {
 
     private String email;
