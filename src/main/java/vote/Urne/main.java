@@ -72,8 +72,7 @@ public class main {
     }
 
 
-
-    public static void main(String[] args) { //Le main est temporaire, il peut etre modifier plus tard
+    public static void main(String[] args) { //Le main est temporaire, il peut être modifié plus tard
         System.out.println("  ____     _   _      _       ____      _  __    ____    U  ___ u   _       _      \n" +
                 " / __\"| u |'| |'| U  /\"\\  uU |  _\"\\ u  |\"|/ /  U|  _\"\\ u  \\/\"_ \\/  |\"|     |\"|     \n" +
                 "<\\___ \\/ /| |_| |\\ \\/ _ \\/  \\| |_) |/  | ' /   \\| |_) |/  | | | |U | | u U | | u   \n" +
