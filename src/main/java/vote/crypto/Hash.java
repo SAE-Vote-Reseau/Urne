@@ -4,6 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class Hash {

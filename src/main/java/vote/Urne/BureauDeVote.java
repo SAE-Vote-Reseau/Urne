@@ -88,7 +88,7 @@ public class BureauDeVote extends Thread{
      *Cette méthode c'est la méthode qui permet le bon focntionnement
      * de notre state pattern, celle-ci possède un fonctionnement assez simple.
      * On met en paramétre {@link EtatBureauDeVote l'état} qu'on veut que notre classe, et plus spécifiquement
-     * l️notre attribut aie.
+     * notre attribut aie.
      * Pour ainsi utilizer les méthodes uniques a chaque classe {@link EtatBureauDeVote etat}
      * (spécifié dans la documentation d'Etat)
      *
