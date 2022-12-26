@@ -16,7 +16,34 @@ import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 
-
+/**
+ * Classe centrale de l'application "Urne"
+ *
+ * <p>
+ * Cette classe permet l'execution de notre application
+ * Elle ecoute et execute toutes nos {@link Requete Requetes}
+ * Bureau de Vote va aussi avoir plusieurs {@link EtatBureauDeVote Etats}
+ * en vue que cette application implemente le state pattern
+ * Bureau de Vote va pouvoir donc, avec l'aide de ses {@link EtatBureauDeVote Etats }
+ * <ul>
+ *     <li>Récolter des votes</li>
+ *     <li>Publier des Resultats</li>
+ * </ul>
+ * et fermer l'application de manière sécurisée
+ * <p>Cette application utilise les {@link ServerSocket sockets} afin de pouvoir se connecter
+ * a un Scrutateur
+ *</p>
+ * </p>
+ *<p>
+ *     Elle permet le multithreading avec la generalisation de {@link Thread Thread}
+ *</p>
+ *
+ * Pour l'instantier on devrait faire comme suit:
+ *
+ *<p>
+ *     <i>BureauDeVote b = new BureauDeVote(port, addrScrut, portScrut); </i>
+ *</p>
+ */
 public class BureauDeVote extends Thread{
     private volatile EtatBureauDeVote etat;
     private volatile boolean signalArret;
@@ -35,7 +62,12 @@ public class BureauDeVote extends Thread{
      * L'adresse IP du scrutateur auxquelle on souhaite se connecter
      * @param portScrut
      *Le port de notre Scrutateur
-     * Ce constructeur va
+     *
+     * <p>
+     * Ce constructeur va initializer notre socket
+     * Ainsi que faire la gestion de ces parametres
+     * Il va aussi instantier un {@link Scrutateur Scrutateur}
+     * </p>
      * @throws IOException
      */
     public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
@@ -52,6 +84,16 @@ public class BureauDeVote extends Thread{
         System.out.println("Scrutateur configuré sur le port " + scrutateur.getPort() + " et l'adresse " + scrutateur.getAddr());
     }
 
+    /**
+     *Cette méthode c'est la méthode qui permet le bon focntionnement
+     * de notre state pattern, celle-ci possède un fonctionnement assez simple.
+     * On met en paramétre {@link EtatBureauDeVote l'état} qu'on veut que notre classe, et plus spécifiquement
+     * l️notre attribut aie.
+     * Pour ainsi utilizer les méthodes uniques a chaque classe {@link EtatBureauDeVote etat}
+     * (spécifié dans la documentation d'Etat)
+     *
+     * @param etat
+     */
     public void changeState(EtatBureauDeVote etat){
         this.etat = etat;
     }
@@ -132,7 +174,7 @@ public class BureauDeVote extends Thread{
             Socket socket = null;
             try {
                 socket = serveur.accept();
-                System.out.println("Un client s'est connecté");
+                //System.out.println("Un client s'est connecté");
                 gererConnexion(socket);
                 socket.close();
             } catch (SocketTimeoutException e) { //Ca permet d'eviter qu'on demande la fermeture du serveur et que le thread reste bloqué sur le accept()
