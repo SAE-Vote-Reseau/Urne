@@ -24,8 +24,8 @@ public class SQLUtils {
             String login = props.getProperty("login");
             String password = props.getProperty("password");
             fis.close();
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url,login,password);
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url,login,password);
             } else {
             file.createNewFile();
             Properties props = new Properties();
@@ -43,7 +43,7 @@ public class SQLUtils {
             throw new RuntimeException("Veuillez remplir le fichier de configuration");
         }
     }catch (IOException | SQLException | ClassNotFoundException e){
-        e.printStackTrace();
+            System.out.println(e.getMessage());
     }
 //        String url = "jdbc:mysql://webinfo.iutmontp.univ-montp2.fr/jimenezh";
 //        String driver = "com.mysql.cj.jdbc.Driver";

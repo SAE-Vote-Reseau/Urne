@@ -16,6 +16,10 @@ import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
 import vote.crypto.ElGamal;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+
 /**
  * Classe centrale de l'application "Urne"
  *
@@ -73,8 +77,10 @@ public class BureauDeVote extends Thread{
     public BureauDeVote(int port, String addrScrut, int portScrut) throws IOException {
         etat = new SansSondageEtat(this);
         signalArret = false;
-        //SSLContext sslContext = SSLContextConf.setSystemPropertySSLContextServer("SAEKeyStore.jks","auuuugh");
-        this.serveur = new ServerSocket(port);
+        SSLContext context = SSLContextConf.getInstance().getSSLContext();
+        SSLServerSocketFactory factory = context.getServerSocketFactory();
+
+        this.serveur = ((SSLServerSocket) factory.createServerSocket(port));
         this.serveur.setSoTimeout(500);
 
         this.scrutateur = new Scrutateur(addrScrut,portScrut);
