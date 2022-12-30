@@ -1,4 +1,4 @@
-package vote.Urne.Requete.RequeteClient.RequeteAdmin;
+package vote.Urne.Requete.RequeteClient.RequeteUtilisateur;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;

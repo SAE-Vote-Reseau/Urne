@@ -10,7 +10,7 @@ public class SQLUtils {
     private static SQLUtils instance = null;
     private Connection connection;
 
-    SQLUtils() throws IOException {
+    private SQLUtils() {
         try{
         File file = new File("./SQLUtils.props");
         if (file.exists()) {
@@ -26,6 +26,10 @@ public class SQLUtils {
             fis.close();
             Class.forName(driver);
             connection = DriverManager.getConnection(url,login,password);
+            if(connection == null){
+                System.out.println("Configuration sql invalide");
+                System.exit(-2);
+            }
             } else {
             file.createNewFile();
             Properties props = new Properties();
@@ -60,11 +64,7 @@ public class SQLUtils {
     public static SQLUtils getInstance(){
 
         if(instance == null) {
-            try {
-                instance = new SQLUtils();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            instance = new SQLUtils();
         }
         return instance;
     }

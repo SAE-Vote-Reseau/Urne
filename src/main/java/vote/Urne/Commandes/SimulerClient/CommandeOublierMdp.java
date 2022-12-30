@@ -3,23 +3,28 @@ package vote.Urne.Commandes.SimulerClient;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Requete.RequeteClient.Requete;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteChangePassword;
+import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteConnexion;
+import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteMotDePasseOublie;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandeChangePassword extends CommandeSimulerClient {
-    public CommandeChangePassword(BureauDeVote urne, String raw) throws ParsingException {
+public class CommandeOublierMdp extends CommandeSimulerClient {
+
+    public CommandeOublierMdp(BureauDeVote urne, String raw) throws ParsingException {
         super(null, urne);
-        List<String> p = parsingStringBetweenQuote(raw);
-        if(p.size() < 2){
-            throw new ParsingException("Pas assez d'arguments");
+        ArrayList<String> p = parsingStringBetweenQuote(raw);
+
+        if (p.size() < 1){
+            throw new ParsingException("pas assez de parametres");
         }
-        Requete r = new RequeteChangePassword(p.get(0),p.get(1));
+
+        Requete r = new RequeteMotDePasseOublie(p.get(0));
+
         super.setRequete(r);
     }
+
 
     private ArrayList<String> parsingStringBetweenQuote(String raw) {
         ArrayList<String> parameters = new ArrayList<>();

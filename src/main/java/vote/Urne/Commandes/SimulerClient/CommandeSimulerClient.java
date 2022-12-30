@@ -5,6 +5,8 @@ import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Requete.RequeteClient.Requete;
 
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -24,7 +26,8 @@ public abstract class CommandeSimulerClient extends Commande {
     @Override
     public void executer() throws ExecutionFailedException {
         try {
-            Socket clientSimuler = new Socket("127.0.0.1", 5565);
+            SSLSocketFactory socketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            Socket clientSimuler = (SSLSocket) socketFactory.createSocket("127.0.0.1", 5565);
 
             ObjectOutputStream outputData = new ObjectOutputStream(clientSimuler.getOutputStream());
             ObjectInputStream inputData = new ObjectInputStream(clientSimuler.getInputStream());
