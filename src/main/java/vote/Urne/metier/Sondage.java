@@ -94,7 +94,7 @@ public class Sondage implements Serializable {
 
     @Override
     public String toString(){
-        return consigne + ": " + choix1 + "/" + choix2 + (resultat == null ? ", le resultat n'est pas encore disponible":resultat);
+        return consigne + ": " + choix1 + "/" + choix2 + (resultat == null ? ", le resultat n'est pas encore disponible": " " +resultat);
     }
 
     @Override

@@ -2,11 +2,14 @@ package vote.Urne.metier;
 
 import vote.Urne.metier.Stockage.Stockage;
 import vote.Urne.metier.Stockage.StockageReferundumBdd;
+import vote.Urne.metier.Stockage.StockageVoteBdd;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SondageManager {
 
-    private Stockage<Sondage,String> stockage = StockageReferundumBdd.getInstance();
+    private StockageReferundumBdd stockage = StockageReferundumBdd.getInstance();
     private static SondageManager instance = null;
 
     private SondageManager(){
@@ -26,6 +29,10 @@ public class SondageManager {
         return s;
     }
 
+    public List<Sondage> getHistory(){
+        List<Sondage> history = stockage.getAllSorted();
+        return history.stream().filter((sondage -> sondage.getResultat() != null)).collect(Collectors.toList());
+    }
     public void mettreAJourSondage(Sondage s){
         stockage.mettreAJour(s);
     }

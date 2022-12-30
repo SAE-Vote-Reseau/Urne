@@ -20,6 +20,7 @@ public class VoteManager {
         return instance;
     }
 
+
     public Vote creerVote(String email, String referundumUUID){
         Vote v = new Vote(email,referundumUUID);
         stockage.enregistrer(v);
