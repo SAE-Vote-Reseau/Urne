@@ -18,7 +18,6 @@ public class CommandeCreerSondage extends Commande {
     private String consigne;
     private String choix1;
     private String choix2;
-    private int nbBits;
 
 
     public CommandeCreerSondage(String commandeBrute, BureauDeVote urne) throws ParsingException {
@@ -26,14 +25,13 @@ public class CommandeCreerSondage extends Commande {
 
         ArrayList<String> parameters = parsingStringBetweenQuote(commandeBrute);
 
-        if (parameters.size() < 4){
+        if (parameters.size() < 3){
             throw new ParsingException("Il n'y a pas assez d'arguments");
         }
 
         consigne = parameters.get(0);
         choix1 = parameters.get(1);
         choix2 = parameters.get(2);
-        nbBits = Integer.parseInt(parameters.get(3));
     }
 
     private ArrayList<String> parsingStringBetweenQuote(String raw) {
@@ -52,6 +50,6 @@ public class CommandeCreerSondage extends Commande {
 
     @Override
     public void executer() throws ExecutionFailedException {
-        getUrne().creerSondage(consigne,choix1,choix2,nbBits,"Admin");
+        getUrne().creerSondage(consigne,choix1,choix2,"Admin");
     }
 }

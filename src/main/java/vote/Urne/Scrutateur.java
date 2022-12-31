@@ -50,8 +50,8 @@ public class Scrutateur {
     /**
      *
      */
-    public KeyInfo getKeyInfo(Sondage s, int nbBits) throws IOException,ClassNotFoundException{
-        return (KeyInfo) faireRequete(new RequeteLancerSondage(s,nbBits));
+    public KeyInfo getKeyInfo(Sondage s) throws IOException,ClassNotFoundException{
+        return (KeyInfo) faireRequete(new RequeteLancerSondage(s));
     }
 
     public Integer getDechifrer(Message m, int nbParticipant, Sondage s) throws IOException,ClassNotFoundException{

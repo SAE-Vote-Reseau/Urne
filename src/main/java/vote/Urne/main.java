@@ -87,9 +87,9 @@ public class main {
                 "  )(  (__)//   \\\\  \\\\    >>  //   \\\\_,-,>> \\\\,-.||>>_       \\\\     //  \\\\  //  \\\\  \n" +
                 " (__)    (_\") (\"_)(__)  (__)(__)  (__)\\.)   (_/(__)__)     (__)   (_\")(\"_)(_\")(\"_) ");
 
-        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \"nbBitsKeys\"\npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
+        System.out.println("Action possible:\n---General---\ncreer \"[consigne]\" \"[choix1]\" \"[choix2]\" \npublier_resultat\nfermer_recolte\narreter_sondage \nexit");
         System.out.println("---Simulation Client---\ngetSondage [ssid]\nvote [1 ou 0] [ssid]\nconnect \"[email]\" \"[password\"]\nchange_password \"[new_password]\" \"[ssid]\"\n");
-        System.out.println("---Simulation Admin---\ncreer_sondage \"[consigne]\" \"[choix1]\" \"[choix2]\" \"[nbBits]\" \"[sessionid]\"\nupdate_user \"[email]\" \"[nom]\" \"[prenom]\" \"[mdp]\" \"[true/false: admin]\" \"[sessionId]\"\nset_admin \"[email]\" \"[true/false :setAdmin]\" \"[sessionId]\"\ngetAllUsers [ssid]\ncreer_utilisateur_user \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\" \"[ssid]\"");
+        System.out.println("---Simulation Admin---\ncreer_sondage \"[consigne]\" \"[choix1]\" \"[choix2]\" \"[sessionid]\"\nupdate_user \"[email]\" \"[nom]\" \"[prenom]\" \"[mdp]\" \"[true/false: admin]\" \"[sessionId]\"\nset_admin \"[email]\" \"[true/false :setAdmin]\" \"[sessionId]\"\ngetAllUsers [ssid]\ncreer_utilisateur_user \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\" \"[ssid]\"");
         System.out.println("fermer_recolte_user \"[ssid]\"\npublier_resultat_user \"[ssid]\"\nterminer_sondage_user \"[ssid]\"\ndelete_user [email] [ssid]\n");
         System.out.println("---Utilisateurs---\ncreer_utilisateur \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\"\nmotdepasse_oublier \"[email]\"\nchanger_motdepasse_oublie \"[code]\" \"[mdp]\"\nhistory [ssid]\n");
         try {

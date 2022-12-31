@@ -19,13 +19,8 @@ public class CommandeClientCreerSondage extends CommandeSimulerClient {
         if(l.size() < 4){
             throw new ParsingException("Pas assez d'arguments");
         }
-
-        try{
-            Requete r = new RequeteCreerSondage(l.get(0),l.get(1),l.get(2),Integer.parseInt(l.get(3)),l.get(4));
-            super.setRequete(r);
-        }catch (NumberFormatException e){
-            throw new ParsingException("Nbits invalide");
-        }
+        Requete r = new RequeteCreerSondage(l.get(0),l.get(1),l.get(2),l.get(3));
+        super.setRequete(r);
     }
 
     private ArrayList<String> parsingStringBetweenQuote(String raw) {

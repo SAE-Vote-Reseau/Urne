@@ -104,8 +104,8 @@ public class BureauDeVote extends Thread{
         this.etat = etat;
     }
 
-    public void creerSondage(String consigne, String choix1, String choix2,int nbBits, String createur){
-        etat.creerSondage(this,consigne,choix1,choix2,nbBits,createur);
+    public void creerSondage(String consigne, String choix1, String choix2, String createur){
+        etat.creerSondage(this,consigne,choix1,choix2,createur);
     }
     public void arreterRecolte(){
         etat.arreterRecolte(this);
