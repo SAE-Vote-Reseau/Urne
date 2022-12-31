@@ -30,8 +30,8 @@ public class SondageManager {
     }
 
     public List<Sondage> getHistory(){
-        List<Sondage> history = stockage.getAllSorted();
-        return history.stream().filter((sondage -> sondage.getResultat() != null)).collect(Collectors.toList());
+
+        return stockage.getAllSortedAndFinished();
     }
     public void mettreAJourSondage(Sondage s){
         stockage.mettreAJour(s);

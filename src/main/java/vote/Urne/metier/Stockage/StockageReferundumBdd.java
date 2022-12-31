@@ -41,17 +41,18 @@ public class StockageReferundumBdd implements Stockage<Sondage,String> {
         }
     }
 
-    public List<Sondage> getAllSorted(){
+    public List<Sondage> getAllSortedAndFinished(){
         List<Sondage> sondages = new ArrayList<>();
         SQLUtils sql = SQLUtils.getInstance();
         Connection c = sql.getConnection();
 
-        String requete = "Select * FROM Referundum ORDER BY dateCreation DESC";
+        String requete = "Select * FROM Referundum WHERE resultat IS NOT NULL ORDER BY dateCreation DESC";
         try(PreparedStatement statement = c.prepareStatement(requete, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);) {
             try(ResultSet resultSet = statement.executeQuery();) {
                 while(resultSet.next()) {
-                    Sondage e = new Sondage(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(7));
+                    Sondage e = new Sondage(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(7),resultSet.getString(1));
                     e.setResultat(resultSet.getInt(5));
+
                     sondages.add(e);
                 }
             }

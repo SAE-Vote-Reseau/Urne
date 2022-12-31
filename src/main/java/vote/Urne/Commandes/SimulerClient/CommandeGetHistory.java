@@ -13,7 +13,7 @@ public class CommandeGetHistory extends CommandeSimulerClient {
     private static String parseSSID(String commandeBrut) throws ParsingException {
         String[] parts = commandeBrut.split(" ");
 
-        if (parts.length <2){
+        if (parts.length <1){
             throw new ParsingException("Pas assez d'arguments");
         }
 
