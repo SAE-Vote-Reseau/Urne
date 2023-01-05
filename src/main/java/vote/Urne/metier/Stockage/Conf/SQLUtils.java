@@ -26,10 +26,6 @@ public class SQLUtils {
             fis.close();
             Class.forName(driver);
             connection = DriverManager.getConnection(url,login,password);
-            if(connection == null){
-                System.out.println("Configuration sql invalide");
-                System.exit(-2);
-            }
             } else {
             file.createNewFile();
             Properties props = new Properties();
@@ -48,6 +44,8 @@ public class SQLUtils {
         }
     }catch (IOException | SQLException | ClassNotFoundException e){
             System.out.println(e.getMessage());
+            System.out.println("Configuration sql invalide");
+            System.exit(-2);
     }
 //        String url = "jdbc:mysql://webinfo.iutmontp.univ-montp2.fr/jimenezh";
 //        String driver = "com.mysql.cj.jdbc.Driver";

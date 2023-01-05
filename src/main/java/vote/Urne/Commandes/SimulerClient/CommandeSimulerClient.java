@@ -4,6 +4,7 @@ import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.SSLContextConf;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -26,6 +27,9 @@ public abstract class CommandeSimulerClient extends Commande {
     @Override
     public void executer() throws ExecutionFailedException {
         try {
+            System.setProperty("javax.net.ssl.trustStore", SSLContextConf.getInstance().getClientTrustPath());
+            System.setProperty("javax.net.ssl.trustStorePassword", SSLContextConf.getInstance().getPasswordClient());
+
             SSLSocketFactory socketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             Socket clientSimuler = (SSLSocket) socketFactory.createSocket("127.0.0.1", 5565);
 
