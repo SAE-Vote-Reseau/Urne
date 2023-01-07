@@ -58,7 +58,7 @@ public class SSLContextConf {
                 props.store(fos,"PROPERTIES");
                 fis.close();
                 fos.close();
-                throw new RuntimeException("Veuillez remplir le fichier de configuration du mail");
+                throw new RuntimeException("Veuillez remplir le fichier de configuration TLS");
             }
         }catch (IOException e){
             System.out.println(e.getMessage());
