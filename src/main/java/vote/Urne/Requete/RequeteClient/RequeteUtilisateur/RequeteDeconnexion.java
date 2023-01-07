@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class RequeteDeconnexion extends Requete {
-    private static final long serialVersionUID = -763580206821742400L;
+    private static final long serialVersionUID = 1248828963788962307L;
     private String ssid;
 
     public RequeteDeconnexion(String ssid){
