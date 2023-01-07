@@ -28,7 +28,6 @@ public class RequeteChangePassword extends Requete {
             byte[][] hash = Hash.hashPassword(newPassword);
             Employe m = new Employe(e.getEmail(),e.getNom(),e.getPrenom(),hash[0],hash[1], e.getIsAdmin());
             EmployeManager.getInstance().mettreAJourEmploye(m);
-            ConnexionsHandler.getInstance().disconnectIfConnected(m);
             out.writeObject("OK");
         }else {
             out.writeObject("Pas les droits");

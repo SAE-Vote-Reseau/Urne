@@ -96,7 +96,7 @@ public class main {
         System.out.println("---Utilisateurs---\ncreer_utilisateur \"[email]\" \"[prenom]\" \"[nom]\" \"[mdp]\" \"[true/false: est admin]\"\nmotdepasse_oublier \"[email]\"\nchanger_motdepasse_oublie \"[code]\" \"[mdp]\"\nhistory\n");
         try {
 
-            urne = new BureauDeVote(5565, "127.0.0.1", 6656);
+            urne = new BureauDeVote(UrneConf.getInstance().getPort(), UrneConf.getInstance().getIp(), UrneConf.getInstance().getPortScrutateur());
             urne.start();
         } catch (IOException e) {
             e.printStackTrace();
