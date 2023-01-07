@@ -35,11 +35,11 @@ public class VoteManager {
         return stockage.getAll();
     }
 
-    public Vote getSondage(String[] primaryKeys){
+    public Vote getVote(String[] primaryKeys){
         return stockage.get(primaryKeys);
     }
 
-    public void supprimerSondage(String[] primaryKeys){
+    public void supprimerVote(String[] primaryKeys){
         stockage.supprimer(primaryKeys);
     }
 

@@ -11,7 +11,6 @@ import java.util.List;
 public class EmployeManager {
     private Stockage<Employe,String> stockage = StockageEmployeBdd.getInstance();
     private static EmployeManager instance = null;
-    private final String pepper = "/I-s*!raèl";
 
     private EmployeManager(){
 

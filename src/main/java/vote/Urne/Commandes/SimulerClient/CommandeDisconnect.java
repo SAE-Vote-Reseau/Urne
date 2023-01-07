@@ -28,6 +28,6 @@ public  class CommandeDisconnect extends CommandeSimulerClient {
     }
 
     private String parseSSID(String commandeBrut) throws ParsingException {
-        return getParameters(commandeBrut)[2];
+        return getParameters(commandeBrut)[1];
     }
 }
