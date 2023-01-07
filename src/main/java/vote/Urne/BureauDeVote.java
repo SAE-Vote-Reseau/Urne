@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.ExecutorService;
 
 import vote.Urne.Requete.RequeteClient.Requete;
 import vote.Urne.etats.EtatBureauDeVote;
@@ -19,6 +20,7 @@ import vote.crypto.ElGamal;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
+import java.util.concurrent.*;
 
 /**
  * Classe centrale de l'application "Urne"
@@ -164,7 +166,7 @@ public class BureauDeVote extends Thread{
                 Requete input = (Requete) in.readObject();
 
                 input.repondre(this,out);
-
+                socket.close();
             } catch (IOException e) {
                 System.out.println("Error while read bytes: " + e);
             } catch (ClassNotFoundException e) {
@@ -175,19 +177,34 @@ public class BureauDeVote extends Thread{
 
     @Override
     public void run(){
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        class Gerer implements Runnable {
+            private final Socket s;
+            public Gerer(Socket s){
+                super();
+                this.s = s;
+            }
+            @Override
+            public void run() {
+                gererConnexion(s);
+            }
+        }
+
         System.out.println("Serveur en ecoute");
         while (!signalArret) {
             Socket socket = null;
             try {
                 socket = serveur.accept();
                 //System.out.println("Un client s'est connecté");
-                gererConnexion(socket);
-                socket.close();
+                executor.execute(new Gerer(socket));
+                //gererConnexion(socket);
+
             } catch (SocketTimeoutException e) { //Ca permet d'eviter qu'on demande la fermeture du serveur et que le thread reste bloqué sur le accept()
             } catch (IOException e) {
                 System.out.println("Error while accepting connection :" + e);
             }
         }
+        executor.shutdown();
     }
 
     public Sondage getSondage() {
