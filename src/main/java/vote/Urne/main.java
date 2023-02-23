@@ -25,7 +25,6 @@ public class main {
             firstWord = commandeBrut.substring(0,firstSpace);
         }
 
-
         if(firstWord.length() > 0) {
             switch (firstWord) {
                 case "creer":

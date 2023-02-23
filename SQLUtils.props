@@ -1,0 +1,6 @@
+#PROPERTIES
+#Tue Dec 27 14:28:14 CET 2022
+driver=com.mysql.cj.jdbc.Driver
+login=SAE
+password=kiwi
+url=jdbc:mysql://127.0.0.1/jimenezh

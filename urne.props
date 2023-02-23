@@ -1,0 +1,5 @@
+#PROPERTIES
+#Sat Jan 07 17:13:54 CET 2023
+ipScrutateur=127.0.0.1
+port=5565
+portScrutateur=6656

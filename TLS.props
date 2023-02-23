@@ -1,0 +1,6 @@
+#PROPERTIES
+#Sun Jan 01 04:26:01 CET 2023
+password=auuugh
+pathTrust=SAE
+passwordClient=auuugh
+clientTestTrustPath=client.jks
