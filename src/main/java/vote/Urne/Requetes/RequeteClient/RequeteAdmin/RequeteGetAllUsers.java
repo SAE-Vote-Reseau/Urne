@@ -1,30 +1,32 @@
-package vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteEtat;
+package vote.Urne.Requetes.RequeteClient.RequeteAdmin;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
+import vote.Urne.metier.Employe;
+import vote.Urne.metier.EmployeManager;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
-public class RequeteArreterSondage extends Requete {
-    private static final long serialVersionUID = 2406585980453091613L;
+public class RequeteGetAllUsers extends Requete {
+    private static final long serialVersionUID = -1005850150066274606L;
     private String ssid;
 
-    public RequeteArreterSondage(String ssid) {
-        super("arreter_sondage");
+    public RequeteGetAllUsers(String ssid) {
+        super("getAll");
         this.ssid = ssid;
     }
 
     @Override
     public void repondre(BureauDeVote bureau, ObjectOutputStream out) throws IOException {
         if(ConnexionsHandler.getInstance().isConnected(ssid) && ConnexionsHandler.getInstance().getEmploye(ssid).getIsAdmin()){
-            bureau.finirSondage();
-            out.writeObject("OK");
+            List<Employe> e = EmployeManager.getInstance().getAll();
+            out.writeObject(e);
         }
         else {
             out.writeObject("Pas les droits");
         }
-        out.flush();
     }
 }

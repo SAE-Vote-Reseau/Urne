@@ -2,5 +2,5 @@
 #Tue Dec 27 14:28:14 CET 2022
 driver=com.mysql.cj.jdbc.Driver
 login=jimenezh
-password=203300612D
-url=jdbc:mysql:ebinfo.iutmontp.univ-montp2.fr/jimenezh
+password=203300612DK
+url=jdbc:mysql://webinfo.iutmontp.univ-montp2.fr/jimenezh

@@ -1,8 +1,6 @@
-package vote.Urne.Requete.RequeteScrutateur;
+package vote.Urne.Requetes.RequeteScrutateur;
 
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**

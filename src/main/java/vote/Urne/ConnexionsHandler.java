@@ -1,6 +1,6 @@
 package vote.Urne;
 
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.ConnexionReponse;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.ConnexionReponse;
 import vote.Urne.metier.Employe;
 import vote.Urne.metier.EmployeManager;
 import vote.crypto.Hash;

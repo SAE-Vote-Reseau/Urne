@@ -3,7 +3,7 @@ package vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Commandes.SimulerClient.CommandeSimulerClient;
-import vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteEtat.RequeteFermerRecolte;
+import vote.Urne.Requetes.RequeteClient.RequeteAdmin.RequeteEtat.RequeteFermerRecolte;
 
 public class CommandeClientFermerRecolte extends CommandeSimulerClient {
     public CommandeClientFermerRecolte(BureauDeVote urne, String commandeBrut) throws ParsingException{

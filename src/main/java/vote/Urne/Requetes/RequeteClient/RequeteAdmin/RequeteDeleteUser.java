@@ -1,14 +1,12 @@
-package vote.Urne.Requete.RequeteClient.RequeteAdmin;
+package vote.Urne.Requetes.RequeteClient.RequeteAdmin;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;
-import vote.Urne.Requete.RequeteClient.Requete;
-import vote.Urne.metier.Employe;
+import vote.Urne.Requetes.RequeteClient.Requete;
 import vote.Urne.metier.EmployeManager;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.List;
 
 public class RequeteDeleteUser extends Requete {
     private static final long serialVersionUID = -5975297827427502321L;

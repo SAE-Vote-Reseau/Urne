@@ -1,11 +1,11 @@
-package vote.Urne.Requete.RequeteClient.RequeteUtilisateur;
+package vote.Urne.Requetes.RequeteClient.RequeteUtilisateur;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
 import vote.crypto.Message;
 
 public class RequeteVote extends Requete {

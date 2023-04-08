@@ -2,8 +2,7 @@ package vote.Urne.Commandes.SimulerClient;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteChangerMotDePasseOublie;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteConnexion;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteChangerMotDePasseOublie;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

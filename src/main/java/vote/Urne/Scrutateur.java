@@ -1,8 +1,8 @@
 package vote.Urne;
 
-import vote.Urne.Requete.RequeteScrutateur.RequeteDechiffrer;
-import vote.Urne.Requete.RequeteScrutateur.RequeteLancerSondage;
-import vote.Urne.Requete.RequeteScrutateur.RequeteScrutateur;
+import vote.Urne.Requetes.RequeteScrutateur.RequeteDechiffrer;
+import vote.Urne.Requetes.RequeteScrutateur.RequeteLancerSondage;
+import vote.Urne.Requetes.RequeteScrutateur.RequeteScrutateur;
 import vote.Urne.metier.Sondage;
 import vote.crypto.KeyInfo;
 import vote.crypto.Message;

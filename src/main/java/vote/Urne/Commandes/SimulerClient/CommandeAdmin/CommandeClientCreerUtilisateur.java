@@ -3,7 +3,7 @@ package vote.Urne.Commandes.SimulerClient.CommandeAdmin;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Commandes.SimulerClient.CommandeSimulerClient;
-import vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteAddUser;
+import vote.Urne.Requetes.RequeteClient.RequeteAdmin.RequeteAddUser;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

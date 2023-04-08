@@ -3,8 +3,7 @@ package vote.Urne.Commandes.SimulerClient;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
-import vote.Urne.Commandes.SimulerClient.CommandeSimulerClient;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteVote;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteVote;
 import vote.crypto.Message;
 
 import java.math.BigInteger;

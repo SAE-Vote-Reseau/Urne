@@ -3,12 +3,7 @@ package vote.Urne.Commandes.SimulerClient;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteDeconnexion;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteVote;
-import vote.crypto.ElGamal;
-import vote.crypto.Message;
-
-import java.math.BigInteger;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteDeconnexion;
 
 public  class CommandeDisconnect extends CommandeSimulerClient {
     public CommandeDisconnect(String commandeBrut, BureauDeVote urne) throws ParsingException, ExecutionFailedException {

@@ -4,8 +4,7 @@ import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Commandes.SimulerClient.CommandeSimulerClient;
-import vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteDeleteUser;
-import vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteGetAllUsers;
+import vote.Urne.Requetes.RequeteClient.RequeteAdmin.RequeteDeleteUser;
 
 public  class CommandeDeleteUser extends CommandeSimulerClient {
     public CommandeDeleteUser(String commandeBrut, BureauDeVote urne) throws ParsingException, ExecutionFailedException {

@@ -3,8 +3,8 @@ package vote.Urne.Commandes.SimulerClient.CommandeAdmin.etat;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Commandes.SimulerClient.CommandeSimulerClient;
-import vote.Urne.Requete.RequeteClient.Requete;
-import vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteEtat.RequeteCreerSondage;
+import vote.Urne.Requetes.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.RequeteAdmin.RequeteEtat.RequeteCreerSondage;
 
 import java.util.ArrayList;
 import java.util.List;

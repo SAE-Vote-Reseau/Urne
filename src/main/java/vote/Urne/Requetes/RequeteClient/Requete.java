@@ -1,4 +1,4 @@
-package vote.Urne.Requete.RequeteClient;
+package vote.Urne.Requetes.RequeteClient;
 
 import vote.Urne.BureauDeVote;
 

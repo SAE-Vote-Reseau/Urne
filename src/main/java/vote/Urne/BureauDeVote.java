@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
 import vote.Urne.etats.EtatBureauDeVote;
 import vote.Urne.etats.SansSondageEtat;
 import vote.Urne.metier.Employe;

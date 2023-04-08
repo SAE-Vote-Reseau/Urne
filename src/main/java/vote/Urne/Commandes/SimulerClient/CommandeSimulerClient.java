@@ -3,7 +3,7 @@ package vote.Urne.Commandes.SimulerClient;
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
 import vote.Urne.SSLContextConf;
 
 import javax.net.ssl.SSLSocket;

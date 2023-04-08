@@ -1,8 +1,8 @@
-package vote.Urne.Requete.RequeteClient.RequeteUtilisateur;
+package vote.Urne.Requetes.RequeteClient.RequeteUtilisateur;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -14,7 +14,7 @@ public class RequeteConnexion extends Requete {
 
     public RequeteConnexion(String email, String password){
         super("connect");
-        this.email =email;
+        this.email = email;
         this.password = password;
     }
     @Override

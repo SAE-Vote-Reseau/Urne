@@ -1,8 +1,8 @@
-package vote.Urne.Requete.RequeteClient.RequeteAdmin.RequeteEtat;
+package vote.Urne.Requetes.RequeteClient.RequeteAdmin.RequeteEtat;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.ConnexionsHandler;
-import vote.Urne.Requete.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.Requete;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

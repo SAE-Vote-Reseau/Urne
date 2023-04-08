@@ -2,8 +2,8 @@ package vote.Urne.Commandes.SimulerClient;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
-import vote.Urne.Requete.RequeteClient.Requete;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteChangePassword;
+import vote.Urne.Requetes.RequeteClient.Requete;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteChangePassword;
 
 import java.util.ArrayList;
 import java.util.List;

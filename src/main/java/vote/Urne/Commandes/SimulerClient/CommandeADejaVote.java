@@ -2,8 +2,7 @@ package vote.Urne.Commandes.SimulerClient;
 
 import vote.Urne.BureauDeVote;
 import vote.Urne.Commandes.Exceptions.ParsingException;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteGetADejaVote;
-import vote.Urne.Requete.RequeteClient.RequeteUtilisateur.RequeteGetSondage;
+import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteGetADejaVote;
 
 public class CommandeADejaVote extends CommandeSimulerClient {
     public CommandeADejaVote(BureauDeVote urne, String commandeBrut) throws ParsingException{
