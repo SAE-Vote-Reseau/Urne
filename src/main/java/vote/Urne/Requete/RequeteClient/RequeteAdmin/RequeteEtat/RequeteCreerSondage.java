@@ -6,6 +6,7 @@ import vote.Urne.Requete.RequeteClient.Requete;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serial;
 
 public class RequeteCreerSondage extends Requete {
     private static final long serialVersionUID = 4365821035425184354L;

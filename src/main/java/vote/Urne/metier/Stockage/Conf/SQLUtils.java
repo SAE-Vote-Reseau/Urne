@@ -43,9 +43,7 @@ public class SQLUtils {
             throw new RuntimeException("Veuillez remplir le fichier de configuration");
         }
     }catch (IOException | SQLException | ClassNotFoundException e){
-            System.out.println(e.getMessage());
-            System.out.println("Configuration sql invalide");
-            System.exit(-2);
+            System.err.println("Configuration sql invalide " + e.getMessage());
     }
 //        String url = "jdbc:mysql://webinfo.iutmontp.univ-montp2.fr/jimenezh";
 //        String driver = "com.mysql.cj.jdbc.Driver";

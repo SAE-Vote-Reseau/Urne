@@ -1,23 +1,24 @@
 package vote.Urne;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class UrneTest {
 
  /*
- Tests unitaires
+ Tests unitaires:
  Commandes Generales
 
  Partie Clients avec Mockito
-
  Parties Admin avec Mockito
-
  Partie Utilisateurs avec Mockito
 
-
   */
-    @Test
- public void test_test(){
+@Nested
+ public class partieGenerale_Tests{
 
+    @Test
+        public void creer_Commande_Test(){
+
+        }
     }
 }
