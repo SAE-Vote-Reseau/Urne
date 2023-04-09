@@ -34,7 +34,6 @@ public class Scrutateur {
         this.port = port;
     }
 
-
     private Object faireRequete(RequeteScrutateur rq) throws IOException,ClassNotFoundException{
         Socket clientSocket = new Socket(addr,port);
 
