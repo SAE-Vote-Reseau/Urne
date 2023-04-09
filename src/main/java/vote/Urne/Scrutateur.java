@@ -3,14 +3,18 @@ package vote.Urne;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteDechiffrer;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteLancerSondage;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteScrutateur;
+import vote.Urne.Requetes.RequeteScrutateur.RequeteVerification;
 import vote.Urne.metier.Sondage;
 import vote.crypto.KeyInfo;
 import vote.crypto.Message;
+import vote.crypto.VerifiedMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import com.mysql.cj.x.protobuf.MysqlxExpect.Open.Condition.Key;
 
 /**
  * Classe qui represente le Scrutateur dans notre application
@@ -55,6 +59,18 @@ public class Scrutateur {
 
     public Integer getDechifrer(Message m, int nbParticipant, Sondage s) throws IOException,ClassNotFoundException{
         return (Integer) faireRequete(new RequeteDechiffrer(m,nbParticipant,s));
+    }
+
+    public boolean verifierVote(VerifiedMessage vm, KeyInfo pkInfo) throws IOException,ClassNotFoundException{
+        RequeteVerification rq = new RequeteVerification(vm, pkInfo);
+
+        String reponse = (String) faireRequete(rq);
+        switch (reponse){
+            case "valid": return true;
+            case "invalid": return false;
+            case "error": throw new IOException("Erreur au niveau du scrutateur");
+        }
+        return false;
     }
 
     public String getAddr() {

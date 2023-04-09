@@ -15,6 +15,7 @@ import vote.Urne.metier.Employe;
 import vote.Urne.metier.Sondage;
 import vote.Urne.metier.VoteManager;
 import vote.crypto.Message;
+import vote.crypto.VerifiedMessage;
 import vote.crypto.ElGamal;
 
 import javax.net.ssl.SSLContext;
@@ -143,8 +144,22 @@ public class BureauDeVote extends Thread{
         signalArret = true;
     }
 
-    public boolean ajouterVoteChiffre(Message voteChiffre, Employe e){
+    public boolean ajouterVoteChiffre(VerifiedMessage vm, Employe e){
         if(!VoteManager.getInstance().aDejaVoter(e.getEmail(),sondage.getUuid().toString())) {
+            try {
+                if(!scrutateur.verifierVote(vm, sondage.getPublicKeyInfo())){
+                    return false; //si le vote n'est pas valide, on arrete
+                }
+            } catch(IOException err){
+                System.out.println("Erreur de communication: " + err.getMessage());
+                return false;
+            }
+            catch(ClassNotFoundException err){
+                System.out.println("Les versions sont differentes: " + err.getMessage());
+                return false;
+            }
+
+            Message voteChiffre = vm.getM();
             if (sondage.getNbVotant() > 0) {
                 votesChiffres = ElGamal.Agreger(votesChiffres, voteChiffre, sondage.getPublicKeyInfo().getP());
             } else {

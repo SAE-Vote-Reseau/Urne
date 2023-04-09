@@ -5,15 +5,22 @@ import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Requetes.RequeteClient.RequeteUtilisateur.RequeteVote;
 import vote.crypto.Message;
+import vote.crypto.VerifiedMessage;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 
 import vote.crypto.ElGamal;
 
 public  class CommandeVote extends CommandeSimulerClient {
     public CommandeVote(String commandeBrut, BureauDeVote urne) throws ParsingException, ExecutionFailedException {
         super(null, urne);
-        Message voteChiffre = parseVote(commandeBrut);
+        VerifiedMessage voteChiffre;
+        try{
+            voteChiffre = parseVote(commandeBrut);
+        } catch(NoSuchAlgorithmException e){
+            throw new ExecutionFailedException("L'algo demandé n'est pas disponible" + e.getMessage());
+        }
         String ssid = parseSSID(commandeBrut);
 
         System.out.println(voteChiffre);
@@ -34,15 +41,12 @@ public  class CommandeVote extends CommandeSimulerClient {
         return getParameters(commandeBrut)[2];
     }
 
-    private Message parseVote(String commandeBrut) throws ParsingException,ExecutionFailedException {
+    private VerifiedMessage parseVote(String commandeBrut) throws ParsingException,ExecutionFailedException,  NoSuchAlgorithmException {
 
         String[] parts = getParameters(commandeBrut);
 
         try {
             BigInteger vote = new BigInteger(parts[1]);
-            if(vote.compareTo(BigInteger.valueOf(0)) < 0 || vote.compareTo(BigInteger.valueOf(1)) > 0){
-                throw new ParsingException("Arguments invalides");
-            }
 
             if(!getUrne().isVoteOuvert()){
                 throw  new ExecutionFailedException("Le serveur n'a pas d'information de clé");
