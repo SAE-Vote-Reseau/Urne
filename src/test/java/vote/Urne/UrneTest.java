@@ -24,6 +24,9 @@ import static org.mockito.Mockito.*;
 
 class UrneTest {
     @Mock
+    private ServerSocket socketMock;
+    private Socket scrutateurSocketMock;
+    @Mock
     private Scrutateur scrutateurMock;
     @InjectMocks
     private BureauDeVote bureauDeVote = new BureauDeVote(
@@ -31,7 +34,8 @@ class UrneTest {
             UrneConf.getInstance().getIp(),
             UrneConf.getInstance().getPort()
     );
-    private ServerSocket socketMock;
+    Sondage s = SondageManager.getInstance().creerSondage("message","choix1","choix2","Admin");
+
 
     private AutoCloseable closeable;
 
@@ -49,8 +53,6 @@ class UrneTest {
      */
     @BeforeEach
     public void initialize() throws IOException {
-        socketMock = mock(ServerSocket.class);
-
         closeable = MockitoAnnotations.openMocks(this);
     }
     @Nested
@@ -58,7 +60,6 @@ class UrneTest {
         @Test
         public void commandeCreer_test() throws IOException, ParsingException, ClassNotFoundException, ExecutionFailedException {
             String rawMessage = "creer \"message\" \"vote1\" \"vote2\"";
-            Sondage s = SondageManager.getInstance().creerSondage("message","choix1","choix2","Admin");
             Mockito.when(bureauDeVote.getScrutateur().getKeyInfo(s)).thenReturn(new KeyInfo(BigInteger.ONE,BigInteger.TWO,BigInteger.TEN,BigInteger.TEN));
             Mockito.when(scrutateurMock.getKeyInfo(s)).thenReturn(new KeyInfo(BigInteger.ONE,BigInteger.TWO,BigInteger.TEN,BigInteger.TEN));
             System.out.println(bureauDeVote.getScrutateur().getKeyInfo(s));
@@ -66,8 +67,11 @@ class UrneTest {
             c.executer();
         }
         @Test
-        public void requeteCreer_Test(){
-
+        public void requeteCreer_Test() throws IOException, ClassNotFoundException, ParsingException, ExecutionFailedException {
+            String rawMessage = "creer \"message\" \"vote1\" \"vote2\"";
+            Commande c = new CommandeCreerSondage(rawMessage,bureauDeVote);
+            c.executer();
+            Mockito.verify(scrutateurMock).getKeyInfo(s);
         }
     }
 
