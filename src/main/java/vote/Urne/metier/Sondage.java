@@ -84,6 +84,18 @@ public class Sondage implements Serializable {
         return choix2;
     }
 
+    public String getChoix(int choix){
+        if(choix == 1){
+            return choix1;
+        }
+        else if(choix == 2){
+            return choix2;
+        }
+        else{
+            return null;
+        }
+    }
+
     public UUID getUuid(){
         return uuid;
     }
