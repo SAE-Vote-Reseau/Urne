@@ -3,6 +3,7 @@ package vote.Urne;
 import org.junit.jupiter.api.*;
 import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.CommandeUrne.CommandeCreerSondage;
+import vote.Urne.Commandes.CommandeUrne.CommandeCreerUtilisateur;
 import vote.Urne.Commandes.CommandeUrne.CommandePublierResultat;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
@@ -17,11 +18,13 @@ import java.net.Socket;
 
 
 import org.mockito.*;
+import vote.Urne.etats.RecolteEtat;
+import vote.Urne.etats.TermineEtat;
 import vote.Urne.metier.Sondage;
 import vote.Urne.metier.SondageManager;
 import vote.crypto.KeyInfo;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UrneTest {
     @Mock
@@ -35,7 +38,7 @@ class UrneTest {
             UrneConf.getInstance().getIp(),
             UrneConf.getInstance().getPort()
     );
-    Sondage s = SondageManager.getInstance().creerSondage("message","choix1","choix2","Admin");
+    private Sondage s = new Sondage("consigne1","vote1","vote2","emailTest@yopmail.com");
 
 
     private AutoCloseable closeable;
@@ -66,6 +69,7 @@ class UrneTest {
             System.out.println(bureauDeVote.getScrutateur().getKeyInfo(s));
             Commande c = new CommandeCreerSondage(rawMessage,bureauDeVote);
             c.executer();
+            assertEquals(RecolteEtat.class,bureauDeVote.getEtat());
         }
         @Test
         public void requeteCreer_Test() throws IOException, ClassNotFoundException, ParsingException, ExecutionFailedException {
@@ -73,23 +77,22 @@ class UrneTest {
             Commande c = new CommandeCreerSondage(rawMessage,bureauDeVote);
             c.executer();
             Mockito.verify(scrutateurMock).getKeyInfo(s);
+            assertEquals(RecolteEtat.class,bureauDeVote.getEtat());
         }
         @Test
         public void commandePublierResultat_test() throws ExecutionFailedException {
             Commande publier = new CommandePublierResultat(bureauDeVote);
-            Sondage s = SondageManager.getInstance().creerSondage("consigne","choix1","choix2","Admin");
             s.setNbVotant(1);
             bureauDeVote.setSondage(s);
             publier.executer();
             Mockito.verify(bureauDeVote.getSondage().getNbVotant());
-
+            assertEquals(TermineEtat.class,bureauDeVote.getEtat());
         }
         @Test
-        public void commandeCreerUtilisateur_test(){
-
-        }
-        public void commandeHistory_test(){
-
+        public void commandeCreerUtilisateur_test() throws ParsingException, ExecutionFailedException {
+            String rawCommand = "creer_utilisateur \"a@yopmail.com\" \"prenom \" \" nom \" \" 1234\" \"true\" ";
+            Commande utilisateur = new CommandeCreerUtilisateur(bureauDeVote,rawCommand);
+            utilisateur.executer();
         }
     }
 
