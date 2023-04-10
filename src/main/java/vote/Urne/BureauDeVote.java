@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 
 import vote.Urne.Requetes.RequeteClient.Requete;
@@ -147,15 +148,11 @@ public class BureauDeVote extends Thread{
     public boolean ajouterVoteChiffre(VerifiedMessage vm, Employe e){
         if(!VoteManager.getInstance().aDejaVoter(e.getEmail(),sondage.getUuid().toString())) {
             try {
-                if(!scrutateur.verifierVote(vm, sondage.getPublicKeyInfo())){
+                if(!ElGamal.proofIsValid(vm, sondage.getPublicKeyInfo())){
                     return false; //si le vote n'est pas valide, on arrete
                 }
-            } catch(IOException err){
-                System.out.println("Erreur de communication: " + err.getMessage());
-                return false;
-            }
-            catch(ClassNotFoundException err){
-                System.out.println("Les versions sont differentes: " + err.getMessage());
+            } catch(NoSuchAlgorithmException err){
+                System.out.println("Erreur : " + err.getMessage());
                 return false;
             }
 

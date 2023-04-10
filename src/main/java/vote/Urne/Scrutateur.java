@@ -3,7 +3,6 @@ package vote.Urne;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteDechiffrer;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteLancerSondage;
 import vote.Urne.Requetes.RequeteScrutateur.RequeteScrutateur;
-import vote.Urne.Requetes.RequeteScrutateur.RequeteVerification;
 import vote.Urne.metier.Sondage;
 import vote.crypto.KeyInfo;
 import vote.crypto.Message;
@@ -60,19 +59,6 @@ public class Scrutateur {
     public Integer getDechifrer(Message m, int nbParticipant, Sondage s) throws IOException,ClassNotFoundException{
         return (Integer) faireRequete(new RequeteDechiffrer(m,nbParticipant,s));
     }
-
-    public boolean verifierVote(VerifiedMessage vm, KeyInfo pkInfo) throws IOException,ClassNotFoundException{
-        RequeteVerification rq = new RequeteVerification(vm, pkInfo);
-
-        String reponse = (String) faireRequete(rq);
-        switch (reponse){
-            case "valid": return true;
-            case "invalid": return false;
-            case "error": throw new IOException("Erreur au niveau du scrutateur");
-        }
-        return false;
-    }
-
     public String getAddr() {
         return addr;
     }
