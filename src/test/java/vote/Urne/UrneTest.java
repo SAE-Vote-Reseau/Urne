@@ -3,6 +3,7 @@ package vote.Urne;
 import org.junit.jupiter.api.*;
 import vote.Urne.Commandes.Commande;
 import vote.Urne.Commandes.CommandeUrne.CommandeCreerSondage;
+import vote.Urne.Commandes.CommandeUrne.CommandePublierResultat;
 import vote.Urne.Commandes.Exceptions.ExecutionFailedException;
 import vote.Urne.Commandes.Exceptions.ParsingException;
 import vote.Urne.Requetes.RequeteClient.Requete;
@@ -72,6 +73,23 @@ class UrneTest {
             Commande c = new CommandeCreerSondage(rawMessage,bureauDeVote);
             c.executer();
             Mockito.verify(scrutateurMock).getKeyInfo(s);
+        }
+        @Test
+        public void commandePublierResultat_test() throws ExecutionFailedException {
+            Commande publier = new CommandePublierResultat(bureauDeVote);
+            Sondage s = SondageManager.getInstance().creerSondage("consigne","choix1","choix2","Admin");
+            s.setNbVotant(1);
+            bureauDeVote.setSondage(s);
+            publier.executer();
+            Mockito.verify(bureauDeVote.getSondage().getNbVotant());
+
+        }
+        @Test
+        public void commandeCreerUtilisateur_test(){
+
+        }
+        public void commandeHistory_test(){
+
         }
     }
 
